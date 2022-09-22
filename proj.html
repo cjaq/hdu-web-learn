@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='res/css/histogram.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='res/css/header.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='res/css/base.css'>
+</head>
+<body>
+    <header>
+        <div class="header_container flex-justify-between flex-d flex-row">
+          <div class="header_container_buttons">
+            <nav class="header_nav">
+              <ul class="flex-d">
+                <li>
+                    <a href="/index.html">首页</a>
+                </li>
+                <li>
+                    <a href="/proj.html">尝试:手写数字的识别</a>
+                </li>
+                <li>
+                    <a href="/index.html">尝试:显示图片的分类</a>
+                </li>
+                <li>
+                    <a href="/index.html">尝试:pca降维的可视化</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="header_logo">
+            <img src="res/images/logo.jpg" class="circle-border">
+          </div>
+          
+        </div>
+  
+      </header>
+    <div class="user_interaction_wrapper">
+            <div class="upload_wrapper">
+                <canvas id="image_canvas" width=500px height=400px>
+                </canvas>
+                <button id="image_clear">
+                    清除
+                </button>
+                <button id="image_upload">
+                    判断
+                </button>
+            </div>
+    </div>
+</body>
+<script src='res/javascript/classify_mnist.js'></script>
+<script>
+    document.body.getElementsByClassName("user_interaction_wrapper")[0].appendChild(make_empty_histogram(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']));
+</script>
+<script>
+</script>
+</html>

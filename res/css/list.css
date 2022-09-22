@@ -1,0 +1,21 @@
+/*负责列表式导航栏的样式*/
+
+.list_nav_item_wrapper_hidden ul{
+    max-height: 0px;
+    overflow: hidden;
+}
+
+.list_nav_viewer li{
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.list_nav{
+    width: 20%;
+    background-color: #eee;
+    margin-left: 12px;
+}
+
+.list_nav div{
+    overflow: hidden;
+}

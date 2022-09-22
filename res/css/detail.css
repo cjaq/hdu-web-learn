@@ -1,0 +1,22 @@
+.main_body_from_out{
+    margin-left: 20px;
+    width: 70%;
+    height:600px;
+}
+
+.comment span{
+    margin: 30px 30px;
+    position: relative;
+    left: 20%;
+}
+
+#comment_content{
+    position: relative;
+    left: 20%;
+    margin: 0px 0px 0px 30px;
+    width: 60%;
+}
+
+textarea{
+    width: 100%;
+}
