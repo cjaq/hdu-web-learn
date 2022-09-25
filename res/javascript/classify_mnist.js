@@ -8,7 +8,7 @@ function fresh_handler(){
     if(global_fresh_item_goal['remain'] > 0){
         let items = document.getElementsByClassName("histogram_item");
         for(let i = 0; i < items.length; ++i){
-            if(global_fresh_item_goal['items'][i] * 100 / global_animate_frames * (global_animate_frames - global_fresh_item_goal['remain']) > 0){
+            if(global_fresh_item_goal['items'][i] * 100 / global_animate_frames * (global_animate_frames - global_fresh_item_goal['remain']) > 0.5){
                 items[i].style.height = global_fresh_item_goal['items'][i] * 100 / global_animate_frames * (global_animate_frames - global_fresh_item_goal['remain']) + "%"
             }
             else{
@@ -96,7 +96,7 @@ document.getElementById("image_upload").onclick = () => {
     var data = new Array(784);
     for(var i = 0; i < 28; ++i){
         for(var j = 0; j < 28; ++j){
-            data[i*28+j] = img.data[(i*img.width + j)*4 + 3] / 255;
+            data[i*28+j] = (img.data[(i*img.width + j)*4 + 3] / 255 - 0.5) * 2;
         }
     }
     fresh(softmax(classify(data)));

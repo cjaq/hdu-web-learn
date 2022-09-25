@@ -35,32 +35,19 @@ function create_html_objs_in_main(data){
     return main_wrapper;
 }
 
-data = {'数学基础': [
-                    {
-                        'url': 'detail.html?resource_url=./res/html/MNIST.html',
-                        'img': 'res/images/logo.jpg',
-                        'title': '梯度下降',
-                        'describe': '梯度下降是神经网络的基础'
-                    }, 
-                    {
-                        'url': 'detail.html',
-                        'img': 'res/images/logo.jpg',
-                        'title': '导数和偏导数',
-                        'describe': '求导是数学优化的基础'
-                    }
-                ],
-        'python基础': [
-                    {
-                        'url': 'detail.html',
-                        'img': 'res/images/logo.jpg',
-                        'title': 'python语法',
-                        'describe': '学习一门语言的语法是最基础的'
-                    }, 
-                    {
-                        'url': 'detail.html',
-                        'img': 'res/images/logo.jpg',
-                        'title': '使用numpy',
-                        'describe': 'numpy是高度优化的python科学运算库'
-                    }
-                ]
-            };
+function load_content_from_server(){
+    let url = './res/json/homepage.json';
+    let request = new XMLHttpRequest();
+    request.open('get', url);
+    request.send(null);
+    request.onload = () =>{
+        if(request.status == 200){
+            let data = JSON.parse(request.responseText);
+            document.getElementsByClassName("main_body")[0].appendChild(create_html_objs_in_main(data));
+        }else{
+            alert("读取数据时出错");
+        }
+    }
+}
+
+load_content_from_server();

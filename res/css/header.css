@@ -43,7 +43,7 @@ body{
 
 .main_body a{
     text-decoration: none;
-    border-radius: 10%;
+    border-radius: 10px;
     background-color: #ddd;
     width: max(20%, 140px);
     margin-right: 5%;
@@ -53,8 +53,9 @@ body{
 
 .main_body img{
     height: 60px;
-    margin: 5px 5px 5px 10px;
+    margin: 5px 5px;
     width: 60px;
+    border-radius: 10px;
 }
 
 .main_body h4{

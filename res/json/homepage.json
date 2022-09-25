@@ -1,0 +1,58 @@
+{
+    "数学基础": [
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "梯度下降",
+            "describe": "梯度下降是神经网络的基础"
+        }, 
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "导数和偏导数",
+            "describe": "求导是数学优化的基础"
+        }
+    ],
+    "python基础": [
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "python语法",
+            "describe": "学习一门语言的语法是最基础的"
+        }, 
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "使用numpy",
+            "describe": "numpy是高度优化的python科学运算库"
+        }
+    ],
+    "神经网络入门": [
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "多层感知机",
+            "describe": "神经网络就是多层感知机的拓展"
+        }, 
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "vgg",
+            "describe": "在ImageNet上取得卓越结果的模型"
+        },
+        {
+            "url": "detail.html",
+            "img": "res/images/logo.jpg",
+            "title": "残差模块",
+            "describe": "使得深度学习真正的步入了深度的领域"
+        }
+    ],
+    "实验":[
+        {
+            "url": "detail.html?resource_url=./res/html/MNIST.html",
+            "img": "res/images/logo.jpg",
+            "title": "MNIST",
+            "describe": "不同参数对于MNIST识别准确率的影响"
+        }
+    ]
+}
