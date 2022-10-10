@@ -7,7 +7,7 @@
             "describe": ""
         }, 
         {
-            "url": "detail.html",
+            "url": "detail.html?res=./res/json/res.json",
             "img": "res/images/logo.jpg",
             "title": "残差网络",
             "describe": ""

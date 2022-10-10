@@ -119,6 +119,7 @@ function decode_content(data){
                         j++;
                     }
                     table.appendChild(tr);
+                    document.getElementById(key).appendChild(table);
                     break;
             }
         }

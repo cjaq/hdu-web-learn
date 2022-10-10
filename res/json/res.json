@@ -1,0 +1,56 @@
+{
+    "algorithm_describe":[
+        {
+            "type": "text",
+            "detail": "卷积神经网络(convolutional neural network, CNN)，是一类包含卷积计算且具有深度结构的前馈神经网络。卷积神经网络是受生物学上感受野（Receptive Field）的机制而提出的。卷积神经网络专门用来处理具有类似网格结构的数据的神经网络。例如，时间序列数据（可以认为是在时间轴上有规律地采样形成的一维网格） 和图像数据（可以看作是二维的像素网格）。"
+        },
+        {
+            "type": "img",
+            "detail": "res/images/cnn_base.png"
+        }
+    ],
+    "mathematical_principles":[
+        {
+            "type": "text",
+            "detail": "卷积是数学分析中的一种积分变换的方法，在图像处理中采用的是卷积的离散形式。这里需要说明的是，在卷积神经网络中，卷积层的实现方式实际上是数学中定义的互相关 （cross-correlation）运算，与数学分析中的卷积定义有所不同，使用互相关运算作为卷积的定义。 互相关是一个衡量两个序列相关性的函数，通常是用滑动窗口的点积计算来实现。而卷积则需要将滤波器经过反转。一个二维的卷积操作可以定义为下面的公式"
+        },
+        {
+            "type": "img",
+            "detail": "res/images/eb0088f908d955e0e452d3b05ae309b4.svg"
+        }
+    ],
+    "code_implement":[
+        {
+            "type": "text",
+            "detail": "这里我们使用pytorch为基本框架来实现残差神经网络"
+        },
+        {
+            "type": "code",
+            "detail": "class res(nn.Module):\n    def __init__(self, inc, ouc):\n        super(res, self).__init__()\n        self.model = nn.Sequential(\n            nn.Conv2d(inc, ouc, kernel_size=3, stride=1, padding=1),\n            nn.ReLU(),\n            nn.Conv2d(ouc, ouc, kernel_size=3, stride=1, padding=1),\n            nn.ReLU()\n        )\n\n        self.short_cut = nn.Conv2d(inc, ouc, 1)\n    def forward(self, x):\n        return self.model(x) + self.short_cut(x)\n\nclass RES(nn.Module):\n    def __init__(self):\n        super(RES, self).__init__()\n        self.model = nn.Sequential(\n            res(3, 16),\n            nn.MaxPool2d(2, 2),\n            res(16, 32),\n            nn.MaxPool2d(2, 2),\n            res(32, 32),\n            nn.Flatten(),\n            nn.Linear(32 * 8 * 8, 10)\n        )\n\n    def forward(self, x):\n        return self.model(x)"
+        }
+    ],
+    "experimental_performance":[
+        {
+            "type":"text",
+            "detail":"实验记录了在CIFAR10上残差网络相比较于卷积网络的优势"
+        },
+        {
+            "type": "table",
+            "col": 5,
+            "row": 3,
+            "info": ["模型结构", "iter:60000", "iter:120000", "iter:300000", "iter:600000",
+                    "卷积神经网络",	"30.72%",	"43.15%",	"54.91%",	"61.09%",
+                    "残差神经网络",	"36.14%",	"46.69%",	"58.57%",	"65.80%"]
+        }
+    ],
+    "others":[
+        {
+            "type":"text",
+            "detail":"附录:实验代码如下"
+        },
+        {
+            "type":"code",
+            "detail":"import copy\n\nfrom torch import nn\nimport torch\nfrom torch.utils.data import DataLoader\nfrom torchvision.datasets import CIFAR10\nfrom torchvision.transforms import transforms\nimport torch.nn.functional as F\nimport copy\n\n\nclass res(nn.Module):\n    def __init__(self, inc, ouc):\n        super(res, self).__init__()\n        self.model = nn.Sequential(\n            nn.Conv2d(inc, ouc, kernel_size=3, stride=1, padding=1),\n            nn.ReLU(),\n            nn.Conv2d(ouc, ouc, kernel_size=3, stride=1, padding=1),\n            nn.ReLU()\n        )\n\n        self.short_cut = nn.Conv2d(inc, ouc, 1)\n    def forward(self, x):\n        return self.model(x) + self.short_cut(x)\n\nclass CNN(nn.Module):\n    def __init__(self):\n        super(CNN, self).__init__()\n        self.model = nn.Sequential(\n            nn.Conv2d(3, 16, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Conv2d(16, 16, 3, 1, 1),\n            nn.ReLU(),\n            nn.Conv2d(16, 32, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Conv2d(32, 32, 3, 1, 1),\n            nn.ReLU(),\n            nn.Conv2d(32, 32, 3, 1, 1),\n            nn.ReLU(),\n            nn.Conv2d(32, 32, 3, 1, 1),\n            nn.ReLU(),\n            nn.Flatten(),\n            nn.Linear(32 * 8 * 8, 10)\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\nclass RES(nn.Module):\n    def __init__(self):\n        super(RES, self).__init__()\n        self.model = nn.Sequential(\n            res(3, 16),\n            nn.MaxPool2d(2, 2),\n            res(16, 32),\n            nn.MaxPool2d(2, 2),\n            res(32, 32),\n            nn.Flatten(),\n            nn.Linear(32 * 8 * 8, 10)\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\n\n\ndataloader = DataLoader(CIFAR10(r\\'E:\\data\\cifar10\\', train=True, transform=transforms.ToTensor()), batch_size=64, shuffle=False)\nmodel1 = CNN().cuda()\nmodel2 = RES().cuda()\nopt1 = torch.optim.Adam(model1.parameters())\nopt2 = torch.optim.Adam(model2.parameters())\n\nfor e in range(10):\n    acc_cnn, acc_res = 0, 0\n    for i, (x, y) in enumerate(dataloader):\n        x, y = x.to(\\'cuda\\'), y.to(\\'cuda\\')\n        out_cnn = model1(x)\n        out_res = model2(x)\n        acc_cnn += torch.count_nonzero(torch.argmax(out_cnn, dim=1) == y)\n        acc_res += torch.count_nonzero(torch.argmax(out_res, dim=1) == y)\n        loss_cnn_adam = F.cross_entropy(out_cnn, y)\n        loss_cnn_sgd = F.cross_entropy(out_res, y)\n\n        opt1.zero_grad()\n        loss_cnn_adam.backward()\n        opt1.step()\n\n        opt2.zero_grad()\n        loss_cnn_sgd.backward()\n        opt2.step()\n\n    print(f\\'e:{e} acc_cnn:{acc_cnn/60000*100:.4f} acc_res:{acc_res/60000*100:.4f}\\')\n"
+        }
+    ]
+}
