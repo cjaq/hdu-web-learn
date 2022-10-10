@@ -46,7 +46,7 @@ function attach_expand_func(){
     }
 }
 
-function load_content_from_server(){
+function load_list_content_from_server(){
     let url = './res/json/homepage.json';
     let request = new XMLHttpRequest();
     request.open('get', url);
@@ -61,7 +61,70 @@ function load_content_from_server(){
         }
     }
 }
-load_content_from_server();
+load_list_content_from_server();
+
+document.getElementById("show_all").onclick = () => {
+    let c = document.getElementsByClassName("list_nav");
+    if(c.length > 0){
+        c[0].setAttribute("class", "list_nav_mobile_show");
+    }else{
+        document.getElementsByClassName("list_nav_mobile_show")[0].setAttribute("class", "list_nav");
+    }
+}
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+
+//json解码数据
+function decode_content(data){
+    for(let key in data){
+        for(let i = 0; i < data[key].length; ++i){
+            switch(data[key][i].type){
+                case "text":
+                    let p = document.createElement("p");
+                    p.textContent = data[key][i].detail;
+                    document.getElementById(key).appendChild(p);
+                    break;
+                case "code":
+                    let div = document.createElement("div");
+                    div.setAttribute("class", "code");
+                    let pre = document.createElement("pre");
+                    div.appendChild(pre);
+                    pre.textContent = data[key][i].detail;
+                    document.getElementById(key).appendChild(div);
+                    break;
+                case "img":
+                    let img = document.createElement("img");
+                    img.src = data[key][i].detail;
+                    document.getElementById(key).appendChild(img);
+                    break;
+                case "table":
+                    let table = document.createElement("table");
+                    let row = data[key][i].row;
+                    let col = data[key][i].col;
+                    let j = 0;
+                    while(j < row * col){
+                        if(j % col == 0){
+                            if(j != 0){
+                                table.appendChild(tr);
+                            }
+                            tr = document.createElement("tr");
+                        }
+                        let td = document.createElement("td");
+                        td.textContent = data[key][i].info[j];
+                        tr.appendChild(td);
+                        j++;
+                    }
+                    table.appendChild(tr);
+                    break;
+            }
+        }
+    }
+}
+
 
 function type(ch){
     if(ch >= "0" && ch <= "9"){
@@ -185,13 +248,21 @@ function attach_color_code(){
         }
     }
 }
-attach_color_code();
 
-document.getElementById("show_all").onclick = () => {
-    let c = document.getElementsByClassName("list_nav");
-    if(c.length > 0){
-        c[0].setAttribute("class", "list_nav_mobile_show");
-    }else{
-        document.getElementsByClassName("list_nav_mobile_show")[0].setAttribute("class", "list_nav");
+function load_content_from_server(){
+    let url = getQueryString("res");
+    let request = new XMLHttpRequest();
+    request.open('get', url);
+    request.send(null);
+    request.onload = () =>{
+        if(request.status == 200){
+            let data = JSON.parse(request.responseText);
+            decode_content(data);
+            attach_color_code();
+        }else{
+            alert("读取数据时出错");
+        }
     }
 }
+
+load_content_from_server();

@@ -1,0 +1,11 @@
+e:0 acc_cnn:30.7200 acc_res:36.1450
+e:1 acc_cnn:43.1550 acc_res:46.6983
+e:2 acc_cnn:49.2100 acc_res:52.1483
+e:3 acc_cnn:52.5033 acc_res:55.9167
+e:4 acc_cnn:54.9150 acc_res:58.5783
+e:5 acc_cnn:56.6383 acc_res:60.4283
+e:6 acc_cnn:58.1817 acc_res:62.2000
+e:7 acc_cnn:59.5150 acc_res:63.3433
+e:8 acc_cnn:60.5133 acc_res:64.6000
+e:9 acc_cnn:61.0950 acc_res:65.8050
+

@@ -1,0 +1,64 @@
+import copy
+
+from torch import nn
+import torch
+from torch.utils.data import DataLoader
+from torchvision.datasets import CIFAR10
+from torchvision.transforms import transforms
+import torch.nn.functional as F
+import copy
+
+
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        self.model = nn.Sequential(
+            nn.Conv2d(3, 16, 3, 1, 1),
+            nn.MaxPool2d(2, 2),
+            nn.ReLU(),
+            nn.Conv2d(16, 32, 3, 1, 1),
+            nn.MaxPool2d(2, 2),
+            nn.ReLU(),
+            nn.Flatten(),
+            nn.Linear(32 * 8 * 8, 10)
+        )
+
+    def forward(self, x):
+        return self.model(x)
+
+
+dataloader = DataLoader(CIFAR10(r'E:\data\cifar10', train=True, transform=transforms.ToTensor()), batch_size=64, shuffle=False)
+model1 = CNN().cuda()
+model2 = copy.deepcopy(model1)
+model3 = copy.deepcopy(model1)
+opt1 = torch.optim.Adam(model1.parameters())
+opt2 = torch.optim.SGD(model2.parameters(), lr=1e-3)
+opt3 = torch.optim.RMSprop(model3.parameters())
+
+for e in range(10):
+    acc_cnn_adam, acc_cnn_sgd, acc_cnn_rmsp = 0, 0, 0
+    for i, (x, y) in enumerate(dataloader):
+        x, y = x.to('cuda'), y.to('cuda')
+        out_cnn_adam = model1(x)
+        out_cnn_sgd = model2(x)
+        out_cnn_rmsp = model3(x)
+        acc_cnn_adam += torch.count_nonzero(torch.argmax(out_cnn_adam, dim=1) == y)
+        acc_cnn_sgd += torch.count_nonzero(torch.argmax(out_cnn_sgd, dim=1) == y)
+        acc_cnn_rmsp += torch.count_nonzero(torch.argmax(out_cnn_rmsp, dim=1) == y)
+        loss_cnn_adam = F.cross_entropy(out_cnn_adam, y)
+        loss_cnn_sgd = F.cross_entropy(out_cnn_sgd, y)
+        loss_cnn_rmsp = F.cross_entropy(out_cnn_rmsp, y)
+
+        opt1.zero_grad()
+        loss_cnn_adam.backward()
+        opt1.step()
+
+        opt2.zero_grad()
+        loss_cnn_sgd.backward()
+        opt2.step()
+
+        opt3.zero_grad()
+        loss_cnn_rmsp.backward()
+        opt3.step()
+    print(f'e:{e} acc_cnn_adam:{acc_cnn_adam/60000*100:.4f} acc_cnn_sgd:{acc_cnn_sgd/60000*100:.4f}'
+          f' acc_cnn_rmsp:{acc_cnn_rmsp/60000*100:.4f}')

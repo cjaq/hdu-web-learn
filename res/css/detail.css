@@ -7,7 +7,7 @@
     font-display: swap;
   }
 
-@media(min-width:100px){
+@media(min-width:100px) and (max-width:992px){
     main{
         position: relative;
         top: 80px;
@@ -47,6 +47,14 @@
 
 #content img{
     width: 100%;
+}
+
+.bg-cnn_code_imp {
+    width: 917px; height: 561px;
+    background: url('../images/css_sprites.png') -10px -10px;
+    max-width: 100%;
+    max-height: 100%;
+    background-size: 100%;
 }
 
 #content>div>h1{

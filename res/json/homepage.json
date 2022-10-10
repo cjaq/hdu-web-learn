@@ -1,7 +1,7 @@
 {
     "模型结构模块": [
         {
-            "url": "detail.html",
+            "url": "detail.html?res=./res/json/cnn.json",
             "img": "res/images/logo.jpg",
             "title": "卷积网络",
             "describe": ""

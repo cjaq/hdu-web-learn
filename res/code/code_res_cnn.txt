@@ -1,0 +1,94 @@
+import copy
+
+from torch import nn
+import torch
+from torch.utils.data import DataLoader
+from torchvision.datasets import CIFAR10
+from torchvision.transforms import transforms
+import torch.nn.functional as F
+import copy
+
+
+class res(nn.Module):
+    def __init__(self, inc, ouc):
+        super(res, self).__init__()
+        self.model = nn.Sequential(
+            nn.Conv2d(inc, ouc, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(ouc, ouc, kernel_size=3, stride=1, padding=1),
+            nn.ReLU()
+        )
+
+        self.short_cut = nn.Conv2d(inc, ouc, 1)
+    def forward(self, x):
+        return self.model(x) + self.short_cut(x)
+
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        self.model = nn.Sequential(
+            nn.Conv2d(3, 16, 3, 1, 1),
+            nn.MaxPool2d(2, 2),
+            nn.ReLU(),
+            nn.Conv2d(16, 16, 3, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(16, 32, 3, 1, 1),
+            nn.MaxPool2d(2, 2),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, 3, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, 3, 1, 1),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, 3, 1, 1),
+            nn.ReLU(),
+            nn.Flatten(),
+            nn.Linear(32 * 8 * 8, 10)
+        )
+
+    def forward(self, x):
+        return self.model(x)
+
+class RES(nn.Module):
+    def __init__(self):
+        super(RES, self).__init__()
+        self.model = nn.Sequential(
+            res(3, 16),
+            nn.MaxPool2d(2, 2),
+            res(16, 32),
+            nn.MaxPool2d(2, 2),
+            res(32, 32),
+            nn.Flatten(),
+            nn.Linear(32 * 8 * 8, 10)
+        )
+
+    def forward(self, x):
+        return self.model(x)
+
+
+
+dataloader = DataLoader(CIFAR10(r'E:\data\cifar10', train=True, transform=transforms.ToTensor()), batch_size=64, shuffle=False)
+model1 = CNN().cuda()
+model2 = RES().cuda()
+opt1 = torch.optim.Adam(model1.parameters())
+opt2 = torch.optim.Adam(model2.parameters())
+
+for e in range(10):
+    acc_cnn, acc_res = 0, 0
+    for i, (x, y) in enumerate(dataloader):
+        x, y = x.to('cuda'), y.to('cuda')
+        out_cnn = model1(x)
+        out_res = model2(x)
+        acc_cnn += torch.count_nonzero(torch.argmax(out_cnn, dim=1) == y)
+        acc_res += torch.count_nonzero(torch.argmax(out_res, dim=1) == y)
+        loss_cnn_adam = F.cross_entropy(out_cnn, y)
+        loss_cnn_sgd = F.cross_entropy(out_res, y)
+
+        opt1.zero_grad()
+        loss_cnn_adam.backward()
+        opt1.step()
+
+        opt2.zero_grad()
+        loss_cnn_sgd.backward()
+        opt2.step()
+
+    print(f'e:{e} acc_cnn:{acc_cnn/60000*100:.4f} acc_res:{acc_res/60000*100:.4f}')
