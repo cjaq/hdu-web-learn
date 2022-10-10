@@ -5,7 +5,7 @@ function create_html_objs_in_main(data){
     main_wrapper.setAttribute("class", "content_wrapper");
     for(let key in data){
         let item_wrapper = document.createElement("div");
-        let title = document.createElement("h2");
+        let title = document.createElement("h1");
         let wrapper = document.createElement("div")
         item_wrapper.setAttribute("class", "main_items_wrapper");
         title.textContent = key;
@@ -19,7 +19,7 @@ function create_html_objs_in_main(data){
             img.src = data[key][i]['img'];
             let des = document.createElement("div");
             des.setAttribute("class", "flex-d flex-col");
-            let mTitle = document.createElement("h4");
+            let mTitle = document.createElement("h2");
             mTitle.textContent = data[key][i]["title"];
             let describe = document.createElement("p");
             describe.textContent = data[key][i]["describe"];
@@ -43,7 +43,7 @@ function load_content_from_server(){
     request.onload = () =>{
         if(request.status == 200){
             let data = JSON.parse(request.responseText);
-            document.getElementsByClassName("main_body")[0].appendChild(create_html_objs_in_main(data));
+            document.getElementById("main_body").appendChild(create_html_objs_in_main(data));
         }else{
             alert("读取数据时出错");
         }

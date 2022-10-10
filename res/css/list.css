@@ -1,5 +1,30 @@
 /*负责列表式导航栏的样式*/
-
+@import url("normalize.css");
+@media (min-width: 100px){
+    .list_nav{
+        display: none;
+    }
+    .list_nav_mobile_show{
+        width: 100%;
+        background-color: #eee;
+        display: flex !important;
+        position: fixed;
+        top: 80px;;
+        z-index: 998;
+    }
+}
+@media (min-width: 992px){
+    
+    
+    .list_nav{
+        width: 20%;
+        background-color: #eee;
+        margin-left: 12px;
+        display: flex !important;
+    }
+    
+    
+}
 .list_nav_item_wrapper_hidden ul{
     max-height: 0px;
     overflow: hidden;
@@ -9,13 +34,6 @@
     cursor: pointer;
     margin-top: 5px;
 }
-
-.list_nav{
-    width: 20%;
-    background-color: #eee;
-    margin-left: 12px;
-}
-
 .list_nav div{
     overflow: hidden;
 }

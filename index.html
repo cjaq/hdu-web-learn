@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-	  <title>个人简历</title>
+	  <title>个人主页</title>
 	  <meta charset="utf-8">
     <meta name="description" content="个人主页--cja的主页">
     <meta name="keyword" content="个人简历">
     <link rel='stylesheet' type='text/css' media='screen' href='res/css/header.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='res/css/base.css'>
+    <link rel='stylesheet' type="text/css" media="screen" href="res/css/index_main.css">
+    <meta name="viewport"content="width=device-width,user-scalable=no,initial-scale=1.0,  maximum-scale=1.0,minimum-scale=1.0">	
     <script src="res/javascript/add_item_in_main.js"></script>
   </head>
   
   <body>
     <header>
-      <div class="header_container flex-justify-between flex-d flex-row">
-        <div class="header_container_buttons">
-          <nav class="header_nav">
-            <ul class="flex-d">
-              <li>
-                  <a href="./index.html">首页</a>
-              </li>
-              <li>
-                  <a href="./proj.html">尝试:手写数字的识别</a>
-              </li>
-              <li>
-                  <a href="./index.html">尝试:显示图片的分类</a>
-              </li>
-              <li>
-                  <a href="./index.html">尝试:pca降维的可视化</a>
-              </li>
-            </ul>
-          </nav>
+      <div class="header_container flex-justify-between flex-d flex-row" id="top_nav">
+        <div class="header_nav">
+          <ul id="links">
+            <li>
+                <a href="./index.html">首页</a>
+            </li>
+            <li>
+                <a href="./proj.html">尝试:手写数字的识别</a>
+            </li>
+            <li>
+                <a href="./index.html">尝试:显示图片的分类</a>
+            </li>
+            <li>
+                <a href="./index.html">尝试:pca降维的可视化</a>
+            </li>
+          </ul>
         </div>
         <div class="header_logo">
           <img src="res/images/logo.jpg" class="circle-border">
@@ -39,7 +39,7 @@
 
     </header>
     <main>
-      <div class="main_body">
+      <div id="main_body">
       </div>
     </main>
   </body>
