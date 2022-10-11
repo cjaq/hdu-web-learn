@@ -10,7 +10,7 @@
 @media(min-width:100px) and (max-width:992px){
     main{
         position: relative;
-        top: 80px;
+        top: 140px;
         display: block;
     }
     #show_all{
@@ -84,4 +84,13 @@ pre{
 
 body{
     font-family: "阿里妈妈数黑体 Bold";
+}
+
+#basic_info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.formula{
+    text-align: center;
 }

@@ -1,4 +1,22 @@
 {
+    "basic_info":[
+        {
+            "type": "text",
+            "detail": "标题:卷积神经网络"
+        },
+        {
+            "type": "text",
+            "detail": "作者:cja"
+        },
+        {
+            "type": "text",
+            "detail": "创建时间:2022-10-11"
+        },
+        {
+            "type": "text",
+            "detail": "所属模块:模型结构"
+        }
+    ],
     "algorithm_describe":[
         {
             "type": "text",
@@ -50,7 +68,7 @@
         },
         {
             "type":"code",
-            "detail":"from torch import nn\nimport torch\nfrom torch.utils.data import DataLoader\nfrom torchvision.datasets import CIFAR10\nfrom torchvision.transforms import transforms\nimport torch.nn.functional as F\n\n\nclass CNN(nn.Module):\n    def __init__(self):\n        super(CNN, self).__init__()\n        self.model = nn.Sequential(\n            nn.Conv2d(3, 16, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Conv2d(16, 32, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Flatten(),\n            nn.Linear(32 * 8 * 8, 10)\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\n\nclass FC(nn.Module):\n    def __init__(self):\n        super(FC, self).__init__()\n        self.model = nn.Sequential(\n            nn.Flatten(),\n            nn.Linear(32 * 32 * 3, 256),\n            nn.ReLU(),\n            nn.Linear(256, 128),\n            nn.ReLU(),\n            nn.Linear(128, 10),\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\n\ndataloader = DataLoader(CIFAR10(r\\'E:\\data\\cifar10\\', train=True, transform=transforms.ToTensor()), batch_size=64, shuffle=False)\nmodel1 = CNN().cuda()\nmodel2 = FC().cuda()\nopt1 = torch.optim.Adam(model1.parameters())\nopt2 = torch.optim.Adam(model2.parameters())\n\nfor e in range(10):\n    acc_cnn, acc_fc = 0, 0\n    for i, (x, y) in enumerate(dataloader):\n        x, y = x.to(\\'cuda\\'), y.to(\\'cuda\\')\n        out_cnn = model1(x)\n        out_fc = model2(x)\n        acc_cnn += torch.count_nonzero(torch.argmax(out_cnn, dim=1) == y)\n        acc_fc += torch.count_nonzero(torch.argmax(out_fc, dim=1) == y)\n        loss_cnn = F.cross_entropy(out_cnn, y)\n        loss_fc = F.cross_entropy(out_fc, y)\n\n        opt1.zero_grad()\n        loss_cnn.backward()\n        opt1.step()\n\n        opt2.zero_grad()\n        loss_fc.backward()\n        opt2.step()\n    print(f\\'e:{e} acc_cnn:{acc_cnn/60000*100:.4f} acc_fc:{acc_fc/60000*100:.4f}\\')\n                  "
+            "detail":"from torch import nn\nimport torch\nfrom torch.utils.data import DataLoader\nfrom torchvision.datasets import CIFAR10\nfrom torchvision.transforms import transforms\nimport torch.nn.functional as F\n\n\nclass CNN(nn.Module):\n    def __init__(self):\n        super(CNN, self).__init__()\n        self.model = nn.Sequential(\n            nn.Conv2d(3, 16, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Conv2d(16, 32, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Flatten(),\n            nn.Linear(32 * 8 * 8, 10)\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\n\nclass FC(nn.Module):\n    def __init__(self):\n        super(FC, self).__init__()\n        self.model = nn.Sequential(\n            nn.Flatten(),\n            nn.Linear(32 * 32 * 3, 256),\n            nn.ReLU(),\n            nn.Linear(256, 128),\n            nn.ReLU(),\n            nn.Linear(128, 10),\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\n\ndataloader = DataLoader(CIFAR10(r'E:\\data\\cifar10', train=True, transform=transforms.ToTensor()), batch_size=64, shuffle=False)\nmodel1 = CNN().cuda()\nmodel2 = FC().cuda()\nopt1 = torch.optim.Adam(model1.parameters())\nopt2 = torch.optim.Adam(model2.parameters())\n\nfor e in range(10):\n    acc_cnn, acc_fc = 0, 0\n    for i, (x, y) in enumerate(dataloader):\n        x, y = x.to('cuda'), y.to('cuda')\n        out_cnn = model1(x)\n        out_fc = model2(x)\n        acc_cnn += torch.count_nonzero(torch.argmax(out_cnn, dim=1) == y)\n        acc_fc += torch.count_nonzero(torch.argmax(out_fc, dim=1) == y)\n        loss_cnn = F.cross_entropy(out_cnn, y)\n        loss_fc = F.cross_entropy(out_fc, y)\n\n        opt1.zero_grad()\n        loss_cnn.backward()\n        opt1.step()\n\n        opt2.zero_grad()\n        loss_fc.backward()\n        opt2.step()\n    print(f'e:{e} acc_cnn:{acc_cnn/60000*100:.4f} acc_fc:{acc_fc/60000*100:.4f}')\n                  "
         }
     ]
 }

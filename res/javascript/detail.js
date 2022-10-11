@@ -101,6 +101,12 @@ function decode_content(data){
                     img.src = data[key][i].detail;
                     document.getElementById(key).appendChild(img);
                     break;
+                case "formula":
+                    let f = document.createElement("p");
+                    f.setAttribute("class", "formula");
+                    f.textContent = data[key][i].detail;
+                    document.getElementById(key).appendChild(f);
+                    break;
                 case "table":
                     let table = document.createElement("table");
                     let row = data[key][i].row;

@@ -15,7 +15,7 @@
     ],
     "优化器模块": [
         {
-            "url": "detail.html",
+            "url": "detail.html?res=./res/json/sgd.json",
             "img": "res/images/logo.jpg",
             "title": "随机梯度下降",
             "describe": ""

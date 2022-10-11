@@ -1,0 +1,75 @@
+{
+    "basic_info":[
+        {
+            "type": "text",
+            "detail": "标题:随机梯度下降"
+        },
+        {
+            "type": "text",
+            "detail": "作者:cja"
+        },
+        {
+            "type": "text",
+            "detail": "创建时间:2022-10-11"
+        },
+        {
+            "type": "text",
+            "detail": "所属模块:优化器模块"
+        }
+    ],
+    "algorithm_describe":[
+        {
+            "type": "text",
+            "detail": "随机梯度下降（SGD）也称为增量梯度下降，是一种迭代方法，用于优化可微分目标函数。该方法通过在小批量数据上计算损失函数的梯度而迭代地更新权重与偏置项。SGD在高度非凸的损失表面上远远超越了朴素梯度下降法，这种简单的爬山法技术已经主导了现代的非凸优化。"
+        },
+        {
+            "type": "text",
+            "detail": "随机梯度下降可以认为是批次梯度下降得到一种变形,BGD每次计算所有样本梯度的均值作为最终的梯度,而SGD每次只选一个批次的梯度作为最终梯度，相比于BGD，SGD的计算速度更快，收敛速度也更快。"
+        }
+    ],
+    "mathematical_principles":[
+        {
+            "type": "text",
+            "detail": "具体数学原理如下所示,θ为带更新参数,α为学习率,J(θ)是损失函数"
+        },
+        {
+            "type": "img",
+            "detail": "res/images/mylatex20221011_192928.svg"
+        }
+    ],
+    "code_implement":[
+        {
+            "type": "text",
+            "detail": "在pytorch中使用SGD非常简单,可以直接调用相关的实现"
+        },
+        {
+            "type": "code",
+            "detail": "import torch\n\nopt_SGD = torch.optim.SGD(net.parameter(), lr=1e-3)"
+        }
+    ],
+    "experimental_performance":[
+        {
+            "type":"text",
+            "detail":"实验记录了在CIFAR10上同样的卷积神经网络使用SGD, RMSProp, Adam的准确度的差距"
+        },
+        {
+            "type": "table",
+            "col": 5,
+            "row": 4,
+            "info": ["优化器类型", "iter:60000", "iter:120000", "iter:300000", "iter:600000",
+                    "SGD",	"10.42%",	"14.58%",	"21.42%",	"27.10%",
+                    "RMSP",	"24.13%",	"37.66%",	"44.58%",	"45.76%",
+                    "Adam", "36.09%",   "45.80%",   "53.16%",   "57.89%"]
+        }
+    ],
+    "others":[
+        {
+            "type":"text",
+            "detail":"附录:实验代码如下"
+        },
+        {
+            "type":"code",
+            "detail":"import copy\n\nfrom torch import nn\nimport torch\nfrom torch.utils.data import DataLoader\nfrom torchvision.datasets import CIFAR10\nfrom torchvision.transforms import transforms\nimport torch.nn.functional as F\nimport copy\n\n\nclass CNN(nn.Module):\n    def __init__(self):\n        super(CNN, self).__init__()\n        self.model = nn.Sequential(\n            nn.Conv2d(3, 16, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Conv2d(16, 32, 3, 1, 1),\n            nn.MaxPool2d(2, 2),\n            nn.ReLU(),\n            nn.Flatten(),\n            nn.Linear(32 * 8 * 8, 10)\n        )\n\n    def forward(self, x):\n        return self.model(x)\n\n\ndataloader = DataLoader(CIFAR10(r'E:\\data\\cifar10', train=True, transform=transforms.ToTensor()), batch_size=64, shuffle=False)\nmodel1 = CNN().cuda()\nmodel2 = copy.deepcopy(model1)\nmodel3 = copy.deepcopy(model1)\nopt1 = torch.optim.Adam(model1.parameters())\nopt2 = torch.optim.SGD(model2.parameters(), lr=1e-3)\nopt3 = torch.optim.RMSprop(model3.parameters())\n\nfor e in range(10):\n    acc_cnn_adam, acc_cnn_sgd, acc_cnn_rmsp = 0, 0, 0\n    for i, (x, y) in enumerate(dataloader):\n        x, y = x.to('cuda'), y.to('cuda')\n        out_cnn_adam = model1(x)\n        out_cnn_sgd = model2(x)\n        out_cnn_rmsp = model3(x)\n        acc_cnn_adam += torch.count_nonzero(torch.argmax(out_cnn_adam, dim=1) == y)\n        acc_cnn_sgd += torch.count_nonzero(torch.argmax(out_cnn_sgd, dim=1) == y)\n        acc_cnn_rmsp += torch.count_nonzero(torch.argmax(out_cnn_rmsp, dim=1) == y)\n        loss_cnn_adam = F.cross_entropy(out_cnn_adam, y)\n        loss_cnn_sgd = F.cross_entropy(out_cnn_sgd, y)\n        loss_cnn_rmsp = F.cross_entropy(out_cnn_rmsp, y)\n\n        opt1.zero_grad()\n        loss_cnn_adam.backward()\n        opt1.step()\n\n        opt2.zero_grad()\n        loss_cnn_sgd.backward()\n        opt2.step()\n\n        opt3.zero_grad()\n        loss_cnn_rmsp.backward()\n        opt3.step()\n    print(f'e:{e} acc_cnn_adam:{acc_cnn_adam/60000*100:.4f} acc_cnn_sgd:{acc_cnn_sgd/60000*100:.4f}'\n          f' acc_cnn_rmsp:{acc_cnn_rmsp/60000*100:.4f}')\n"
+        }
+    ]
+}

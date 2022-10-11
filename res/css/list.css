@@ -9,7 +9,7 @@
         background-color: #eee;
         display: flex !important;
         position: fixed;
-        top: 80px;;
+        top: 140px;;
         z-index: 998;
     }
 }
@@ -36,4 +36,8 @@
 }
 .list_nav div{
     overflow: hidden;
+}
+
+a{
+    display: block;
 }
