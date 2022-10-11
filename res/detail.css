@@ -1,0 +1,100 @@
+@import url("normalize.css");
+@font-face {
+    font-family: "阿里妈妈数黑体 Bold";
+    font-weight: 700;
+    src: url("../font/Alimama_ShuHeiTi_Bold.woff2") format("woff2"),
+    url("../font/Alimama_ShuHeiTi_Bold.woff") format("woff");
+    font-display: swap;
+  }
+
+@media(min-width:100px) and (max-width:992px){
+    main{
+        position: relative;
+        top: 140px;
+        display: block;
+    }
+    #show_all{
+        display: block;
+        position: fixed;
+        top: 20%;
+        right: 0%;
+        z-index: 999;
+    }
+    #content{
+        width: 90%;
+        position: relative;
+        left: 5%;
+    }
+}
+
+@media (min-width: 992px){
+    main{
+        position: relative !important;
+        top: 105px !important;
+        display: flex;
+    }
+    #show_all{
+        display: none;
+    }
+    #content{
+        width: 60%;
+        position: relative;
+        left: 5%;
+    }
+}
+
+
+
+#content img{
+    width: 100%;
+}
+
+.bg-cnn_code_imp {
+    width: 917px; height: 561px;
+    background: url('../images/css_sprites.png') -10px -10px;
+    max-width: 100%;
+    max-height: 100%;
+    background-size: 100%;
+}
+
+#content>div>h1{
+    border-bottom: 1px solid black;
+}
+
+pre{
+    color: rgb(200, 200, 200);
+}
+
+.keyword{
+    color: rgb(255, 174, 0);
+}
+
+.number{
+    color: rgb(76, 179, 213);
+}
+
+.reserve{
+    color: rgb(137, 73, 137);
+}
+
+.code{
+    background-color: rgb(40, 40, 40);
+    overflow: scroll;
+}
+
+body{
+    font-family: "阿里妈妈数黑体 Bold";
+}
+
+#basic_info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.formula{
+    text-align: center;
+}
+
+.table_wrapper{
+    overflow:scroll;
+}
