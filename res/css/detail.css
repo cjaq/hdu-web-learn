@@ -94,3 +94,7 @@ body{
 .formula{
     text-align: center;
 }
+
+.table_wrapper{
+    overflow:scroll;
+}

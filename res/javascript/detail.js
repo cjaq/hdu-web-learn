@@ -108,7 +108,10 @@ function decode_content(data){
                     document.getElementById(key).appendChild(f);
                     break;
                 case "table":
+                    let wrapper = document.createElement("div");
+                    wrapper.setAttribute("class", "table_wrapper");
                     let table = document.createElement("table");
+                    wrapper.appendChild(table);
                     let row = data[key][i].row;
                     let col = data[key][i].col;
                     let j = 0;
@@ -125,7 +128,7 @@ function decode_content(data){
                         j++;
                     }
                     table.appendChild(tr);
-                    document.getElementById(key).appendChild(table);
+                    document.getElementById(key).appendChild(wrapper);
                     break;
             }
         }
