@@ -1,4 +1,4 @@
-@import url("normalize.css");
+@import url("base.css");
 @font-face {
     font-family: "阿里妈妈数黑体 Bold";
     font-weight: 700;
@@ -6,12 +6,12 @@
     url("../font/Alimama_ShuHeiTi_Bold.woff") format("woff");
     font-display: swap;
   }
-  @media(min-width: 100px){
-    form{
-      position: relative;
-      top:140px;
-    }
+@media(max-width: 992px){
+  form{
+    position: relative;
+    top:140px;
   }
+}
 @media(min-width: 992px){
   fieldset{
     font-family: "阿里妈妈数黑体 Bold";

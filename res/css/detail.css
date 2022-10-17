@@ -1,4 +1,4 @@
-@import url("normalize.css");
+@import url("base.css");
 @font-face {
     font-family: "阿里妈妈数黑体 Bold";
     font-weight: 700;
@@ -7,7 +7,8 @@
     font-display: swap;
   }
 
-@media(min-width:100px) and (max-width:992px){
+/*手机端架构*/
+@media (max-width:992px){
     main{
         position: relative;
         top: 140px;
@@ -16,7 +17,7 @@
     #show_all{
         display: block;
         position: fixed;
-        top: 20%;
+        top: 50%;
         right: 0%;
         z-index: 999;
     }

@@ -1,6 +1,6 @@
-@import url("normalize.css");
+@import url("base.css");
 
-@media (min-width:100px){
+@media (max-width:992px){
     #top_nav>.header_logo{
         display: none;
     }
@@ -96,10 +96,12 @@
     .header_nav li{
         display: flex;
         background-color: #fff;
+        transition: all 0.3s linear;
     }
     
     .header_nav a{
         margin: auto;
+        transition: all 0.3s linear;
     }
     
     .header_nav li:hover{

@@ -1,12 +1,24 @@
 /*负责列表式导航栏的样式*/
-@import url("normalize.css");
-@media (min-width: 100px){
+@import url("base.css");
+
+@font-face {
+    font-family: 'fontello';
+    src: url('/res/font/fontello.eot?96574145');
+    src: url('/res/font/fontello.eot?96574145#iefix') format('embedded-opentype'),
+         url('/res/font/fontello.woff?96574145') format('woff'),
+         url('/res/font/fontello.ttf?96574145') format('truetype'),
+         url('/res/font/fontello.svg?96574145#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media (max-width: 992px){
     .list_nav{
         display: none;
     }
     .list_nav_mobile_show{
         width: 100%;
-        background-color: #eee;
+        background-image: linear-gradient(#eee, #fff);
         display: flex !important;
         position: fixed;
         top: 140px;;
@@ -18,7 +30,7 @@
     
     .list_nav{
         width: 20%;
-        background-color: #eee;
+        background-image: linear-gradient(#eee, #fff);
         margin-left: 12px;
         display: flex !important;
     }
@@ -28,6 +40,18 @@
 .list_nav_item_wrapper_hidden ul{
     max-height: 0px;
     overflow: hidden;
+}
+
+.list_nav_item_wrapper_hidden::before{
+    font-family: "fontello";
+    content: "\e800";
+    margin-right: 2px;
+}
+
+.list_nav_item_wrapper::before{
+    font-family: "fontello";
+    content: "\e801";
+    margin-right: 2px;
 }
 
 .list_nav_viewer li{
@@ -40,4 +64,8 @@
 
 a{
     display: block;
+}
+
+li{
+    list-style-type: none;
 }

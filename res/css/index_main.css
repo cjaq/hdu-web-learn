@@ -1,6 +1,6 @@
-@import url("normalize.css");
+@import url("base.css");
 
-@media (min-width:100px){
+@media (max-width:992px){
     #main_body{
         position: relative;
         top: 140px;
