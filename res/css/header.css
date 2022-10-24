@@ -45,6 +45,12 @@
 
 }
 
+@media (max-height: 300px){
+    #top_nav{
+        position: relative;
+    }
+}
+
 @media (min-width: 992px){
 
     #top_nav>.header_logo{
@@ -141,4 +147,3 @@
         background-position: 39px 39px;      
     }
 }
-

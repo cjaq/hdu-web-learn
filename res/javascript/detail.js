@@ -68,7 +68,14 @@ document.getElementById("show_all").onclick = () => {
     if(c.length > 0){
         c[0].setAttribute("class", "list_nav_mobile_show");
     }else{
-        document.getElementsByClassName("list_nav_mobile_show")[0].setAttribute("class", "list_nav");
+        let t = document.getElementsByClassName("list_nav_mobile_show")[0];
+        console.log(t.style.width);
+        if(t.style.width == "0px"){
+            t.style.width = "50%";
+        }else{
+            t.style.width = "0px";
+        }   
+
     }
 }
 

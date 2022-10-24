@@ -48,3 +48,10 @@ textarea{
     top: 100px;
   }
 }
+
+@media (max-height: 300px){
+  form{
+    position: relative;
+    top: 0px;
+  }
+}
