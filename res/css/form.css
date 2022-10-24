@@ -6,16 +6,43 @@
     url("../font/Alimama_ShuHeiTi_Bold.woff") format("woff");
     font-display: swap;
   }
+
+fieldset{
+  font-family: "阿里妈妈数黑体 Bold";
+}
+
+.form_text_wrapper, .form_code_wrapper, .form_formula_wrapper{
+  display: flex;
+  justify-content: space-between !important;
+}
+
+textarea{
+  width: 80%;
+  margin-right: 5%;
+}
+
+.upload_img_display{
+  width: 50%;
+}
+
+.img_upload{
+  display: grid;
+  border:  1px solid black;
+}
+
 @media(max-width: 992px){
   form{
     position: relative;
     top:140px;
   }
-}
-@media(min-width: 992px){
-  fieldset{
-    font-family: "阿里妈妈数黑体 Bold";
+  #form_basic_info{
+    display: grid;
+    grid-template-columns: 1fr;
   }
+}
+
+@media(min-width: 992px){
+  
   form{
     position: relative;
     top: 100px;

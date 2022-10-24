@@ -46,78 +46,45 @@ function attach(){
     for(let i = 1; i < objs.length; ++i){
         let button = objs[i].querySelector("button");
         let inputs = objs[i].querySelectorAll("input");
-        let avaiable = null;
-
-        for(let t = 0; t < inputs.length; ++t){
-            if(inputs[t].type == "checkbox"){
-                avaiable = inputs[t];
-                break;
-            }
-        }
-
-        if(avaiable != null){
-            avaiable.onclick = ()=> {
-                if(avaiable.checked){
-                    let controls = m.querySelectorAll("input");
-                    for(let t = 0; t < controls.length; ++t){
-                        if(controls[t].type != "checkbox"){
-                            controls[t].disabled = false;
-                        }
-                    }
-
-                    controls = m.querySelectorAll("textarea");
-                    for(let t = 0; t < controls.length; ++t){
-                        controls[t].disabled = false;
-                    }
-
-                    controls = m.querySelector("button");
-                    controls.disabled = false;
-                }else{
-                    let controls = m.querySelectorAll("input");
-                    for(let t = 0; t < controls.length; ++t){
-                        if(controls[t].type != "checkbox"){
-                            controls[t].disabled = true;
-                        }
-                    }
-
-                    controls = m.querySelectorAll("textarea");
-                    for(let t = 0; t < controls.length; ++t){
-                        controls[t].disabled = true;
-                    }
-
-                    controls = m.querySelector("button");
-                    controls.disabled = true;
-                }
-            }
-        }
 
         let m = objs[i];
         button.onclick = () => {
            let select = m.querySelector("select");
            let type = select.options[select.selectedIndex].text;
            if(type == "文本"){
-                let value = m.getElementsByClassName("form_text_wrapper").length;
                 let textarea = document.createElement("textarea");
-                textarea.name = "text_" + value;
                 let fieldset = create_fieldset_with_class_and_childs("文本", "form_text_wrapper", [textarea], m);
                 m.appendChild(fieldset);
            }else if(type=="公式"){
-                let value = m.getElementsByClassName("form_formula_wrapper").length;
                 let textarea = document.createElement("textarea");
-                textarea.name = "formula_" + value;
                 let fieldset = create_fieldset_with_class_and_childs("公式", "form_formula_wrapper", [textarea], m);
                 m.appendChild(fieldset);
            }else if(type=="代码"){
-                let value = m.getElementsByClassName("form_code_wrapper").length;
                 let textarea = document.createElement("textarea");
-                textarea.name = "code_" + value;
                 let fieldset = create_fieldset_with_class_and_childs("代码", "form_code_wrapper", [textarea], m);
                 m.appendChild(fieldset);
            }else if(type=="图片"){
+                let div = document.createElement("div");
+                div.setAttribute("class", "img_upload")
+                let img = document.createElement("img");
+                img.setAttribute("class", "upload_img_display");
                 let img_upload = document.createElement("input");
                 img_upload.type = "file";
-                img_upload.name = m.querySelector("legend").textContent + "_info_img_" + (m.querySelectorAll("input").length - 1);
-                m.appendChild(img_upload);
+                img_upload.accept = "image/*"
+                img_upload.onchange = ()=> {
+                    console.log(img_upload);
+                    if(img_upload.files.length){
+                        let file = img_upload.files[0];
+                        let reader = new FileReader();
+                        reader.onload = function(){
+                          img.src = this.result;
+                        };
+                        reader.readAsDataURL(file);
+                       }                
+                }
+                div.appendChild(img);
+                div.appendChild(img_upload);
+                m.appendChild(div);
            }else if(type=="表格"){
                 let table = create_table_with_textarea(1, 1, [""], [""]);
                 let add_row_button = document.createElement("button");
