@@ -35,10 +35,30 @@
     let tbody = document.querySelector("tbody");
     document.getElementById("add").onclick = () => {
         let tr = document.createElement("tr");
-        tr.innerHTML = "<td>数据</td><td>数据</td><td>数据</td><td><a href='#' class='remove'>删除</a></td>";
+        tr.innerHTML = "<td>数据</td><td>数据</td><td>数据</td><td><a href='#' class='remove'>删除</a></td><td><a href='#' class='edit'>编辑</a></td><td><a href='#' class='save'>保存</a></td>";
         tr.querySelector("a").onclick = (e) => {
             tbody.removeChild(e.target.parentNode.parentNode);
         };
+        tr.querySelector(".edit").onclick = (e) => {
+            let tds = e.target.parentNode.parentNode.querySelectorAll("td");
+            for(let i = 0; i < tds.length - 3; ++i){
+                let textarea = document.createElement("textarea");
+                textarea.textContent = tds[i].textContent;
+                tds[i].textContent = "";
+                tds[i].appendChild(textarea);
+            }
+        }
+        tr.querySelector(".save").onclick = (e) => {
+            let tds = e.target.parentNode.parentNode.querySelectorAll("td");
+            for(let i = 0; i < tds.length - 3; ++i){
+                let tx = tds[i].querySelector("textarea");
+                if(tx == undefined){
+                    break;
+                }
+                tds[i].removeChild(tx);
+                tds[i].textContent = tx.value;
+            }
+        }
         tbody.appendChild(tr);
     }
     let r = document.querySelectorAll(".remove");
