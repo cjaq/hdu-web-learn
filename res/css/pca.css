@@ -1,0 +1,20 @@
+@media(max-width: 992px){
+    .flexslider{
+        position: relative;
+        top:140px;
+    }
+}
+
+@media(min-width: 992px){
+    .flexslider{
+        position: relative;
+        top: 100px;
+    }
+}
+
+@media (max-height: 300px){
+    .flexslider{
+        position: relative;
+        top: 0px;
+    }
+}

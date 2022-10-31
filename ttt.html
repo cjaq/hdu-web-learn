@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>栏目一</th>
+                <th>栏目二</th>
+                <th>栏目三</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>栏目一数据1</td>
+                <td>栏目二数据1</td>
+                <td>栏目三数据1</td>
+                <td><a href="#" class="remove">删除</a></td>
+            </tr>
+            <tr>
+                <td>栏目一数据2</td>
+                <td>栏目二数据2</td>
+                <td>栏目三数据2</td>
+                <td><a href="#" class="remove">删除</a></td>
+            </tr>        
+        </tbody>
+    </table>
+<a href="#" id="add">增加一行</a>
+</body>
+<script>
+    let tbody = document.querySelector("tbody");
+    document.getElementById("add").onclick = () => {
+        let tr = document.createElement("tr");
+        tr.innerHTML = "<td>数据</td><td>数据</td><td>数据</td><td><a href='#' class='remove'>删除</a></td>";
+        tr.querySelector("a").onclick = (e) => {
+            tbody.removeChild(e.target.parentNode.parentNode);
+        };
+        tbody.appendChild(tr);
+    }
+    let r = document.querySelectorAll(".remove");
+    for(let i = 0; i < r.length; ++i){
+        r[i].onclick = (e) => {
+            tbody.removeChild(e.target.parentNode.parentNode);
+        };
+    }
+</script>
+</html>

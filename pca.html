@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" media="screen" href="./res/css/flexsilder.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./res/css/pca.css">
+    <link rel='stylesheet' type='text/css' media='screen' href='res/css/header.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='res/css/base.css'>
+    <meta name="viewport"content="width=device-width,user-scalable=no,initial-scale=1.0,  maximum-scale=1.0,minimum-scale=1.0">	
+</head>
+<body>
+  <header>
+    <div class="header_container flex-justify-between flex-d flex-row" id="top_nav">
+      <div class="header_nav">
+        <ul id="links">
+          <li>
+              <a href="./index.html" class="flex-d">
+                <div class="bg_icon bg_home"></div>
+                <p>首页</p>
+              </a>
+          </li>
+          <li>
+              <a href="./proj.html" class="flex-d">
+                <div class="bg_icon bg_mnist"></div>
+                <p>尝试:手写数字的识别</p>
+              </a>
+          </li>
+          <li>
+              <a href="./pca.html" class="flex-d">
+                <div class="bg_icon bg_re"></div>
+                <p>尝试:pca降维可视化</p>
+              </a>
+          </li>
+          <li>
+              <a href="./form.html" class="flex-d">
+                <div class="bg_icon bg_form"></div>
+                <p>表单页</p>
+              </a>
+          </li>
+        </ul>
+      </div>
+      <div class="header_logo">
+        <img src="res/images/logo.jpg" class="circle-border">
+      </div>
+      
+    </div>
+
+  </header>
+  <main>
+    <div class="flexslider">
+      
+        <ul class="slides">
+              
+            <li>
+                <img src="./res/images/PCA_on_3d.jpg">
+            </li>
+            <li>
+                <img src="./res/images/PCA_on_2d.jpg">
+            </li>
+        </ul>
+    </div>       
+  </main>
+</body>
+<script src="https://www.jq22.com/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://s2.pstatp.com/cdn/expire-1-M/jquery/1.7.2/jquery.min.js"></script>
+<script src="./res/javascript/jQuery.flexslider.js"></script>
+<script src="./res/javascript/pca.js"></script>
+<script src="./res/javascript/jquery.easing.js"></script>
+<script src="./res/javascript/jquery.mousewheel.js"></script>
+</html>

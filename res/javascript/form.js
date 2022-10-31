@@ -19,21 +19,42 @@ function create_fieldset_with_class_and_childs(describe, className, childs, fath
 
 function create_table_with_textarea(row, col, row_title, col_title){
     let table = document.createElement("table");
-    for(let i = 0; i < row + 1; ++i){
+    for(let i = 0; i < row + 2; ++i){
         let tr = document.createElement("tr");
-        for(let j = 0; j < col + 1; ++j){
+        for(let j = 0; j < col + 2; ++j){
             let td = document.createElement("td");
-            let textarea = document.createElement("textarea");
-            td.appendChild(textarea);  
-            if(i == 0){
-                if(j > 0){
-                    textarea.textContent = col_title[j - 1];
-                }else{
-                    td.textContent = "";
+            if(i == 0 && j == 0 || i == row + 1 || j == col + 1){
+                //最后一列
+                if(i == row + 1 && j != col + 1 && j != 0){
+                    let button = document.createElement("button");
+                    button.textContent = "删除列";
+                    button.setAttribute("type", "button");
+                    button.onclick = () => {
+                        let trs =  table.querySelectorAll("tr");
+                        for(var t = 0; t < trs.length; ++t){
+                            trs[t].removeChild(trs[t].querySelectorAll("td")[1]);
+                        }
+                    }
+                    td.appendChild(button);
+                }else if(j == col + 1 && i != row + 1 && i != 0){
+                    let button = document.createElement("button");
+                    button.textContent = "删除行";
+                    button.setAttribute("type", "button");
+                    button.onclick = () => {
+                        table.removeChild(tr);
+                    }
+                    td.appendChild(button);
                 }
-            }else if(j == 0){
-                textarea.textContent = row_title[i - 1];
+            }else{
+                let textarea = document.createElement("textarea");
+                if(j >= 1 && i == 0){
+                    textarea.textContent = col_title[j - 1];        
+                }else if(j == 0 && i >= 1){
+                    textarea.textContent = row_title[i - 1];
+                }
+                td.appendChild(textarea);
             }
+            
             tr.appendChild(td);
         }
         table.appendChild(tr);
@@ -86,7 +107,7 @@ function attach(){
                 div.appendChild(img_upload);
                 m.appendChild(div);
            }else if(type=="表格"){
-                let table = create_table_with_textarea(1, 1, [""], [""]);
+                let table = create_table_with_textarea(1, 1, ["item1"], ["title1"]);
                 let add_row_button = document.createElement("button");
                 let add_col_button = document.createElement("button");
                 add_row_button.setAttribute("type", "button");
@@ -96,28 +117,72 @@ function attach(){
                 add_row_button.onclick = () => {
                     let length = table.querySelector("tr").querySelectorAll("td").length;
                     let tr = document.createElement("tr");
-                    for(let i = 0; i < length; ++i){
+                    for(let i = 0; i < length - 1; ++i){
                         let td = document.createElement("td");
                         let textarea = document.createElement("textarea");
                         td.appendChild(textarea);
                         tr.appendChild(td);
                     }
-                    table.appendChild(tr);
+                    let td = document.createElement("td");
+                    let button = document.createElement("button");
+                    button.setAttribute("type", "button");
+                    button.textContent = "删除行";
+                    button.onclick = ()=>{
+                        table.removeChild(tr);
+                    }
+                    td.appendChild(button);
+                    tr.appendChild(td);
+                    table.insertBefore(tr, table.querySelectorAll("tr")[table.querySelectorAll("tr").length - 1]);
                 }
                 add_col_button.onclick = () => {
                     let tr = table.querySelectorAll("tr");
-                    for(let i = 0; i < tr.length; ++i){
+                    
+                    mIndex = tr[0].querySelectorAll("td").length - 1;
+                    for(let i = 0; i < tr.length - 1; ++i){
                         let td = document.createElement("td");
                         let textarea = document.createElement("textarea");
                         td.appendChild(textarea);
-                        tr[i].appendChild(td);
+                        tr[i].insertBefore(td, tr[i].querySelectorAll("td")[mIndex]);
                     }
+                    let td = document.createElement("td");
+                    let button = document.createElement("button");
+                    button.setAttribute("type", "button");
+                    button.textContent = "删除列";
+                    button.onclick = (e)=>{
+                        let target_node = e.target.parentNode;
+                        let trs = table.querySelectorAll("tr");
+                        let tds = trs[trs.length - 1].querySelectorAll("td");
+                        let mIndex = 0;
+                        for(; mIndex < tds.length; ++mIndex){
+                            if(tds[mIndex] == target_node){
+                                break;
+                            }
+                        }
+                        for(let i = 0; i < trs.length; ++i){
+                            trs[i].removeChild(trs[i].querySelectorAll("td")[mIndex]);
+                        }
+                    }
+                    td.appendChild(button);
+                    tr[tr.length - 1].insertBefore(td, tr[tr.length - 1].querySelectorAll("td")[tr[tr.length - 1].querySelectorAll("td").length - 1]);
                 }
                 let fieldset = create_fieldset_with_class_and_childs("表格", "form_table_wrapper", [table, add_col_button, add_row_button], m);
                 m.appendChild(fieldset);
            }
         }
     }
+}
+
+
+document.getElementsByTagName("form")[0].onsubmit = ()=>{
+    let div = document.getElementById("form_basic_info");
+    let infos = div.getElementsByTagName("input");
+    for(let i = 0; i < infos.length; ++i){
+        if(infos[i].value == ""){
+            alert("基本内容不能有空项目");
+            return false;
+        }
+    }
+    return true;
 }
 
 attach();
