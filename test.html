@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+</head>
+<body>
+    <from>
+        <input>
+    </from>
+    <input type="submit" id="add_info_button">
+</body>
+<script>
+    function addInfo(){
+        let wrapper = document.createElement("div");
+        wrapper.style.display = "flex";
+        let text = document.createElement("p");
+        let del = document.createElement("button");
+        wrapper.appendChild(text);
+        wrapper.appendChild(del);
+
+        text.textContent = document.querySelector("input").value;
+        del.textContent = "删除";
+        del.onclick = () => {
+            document.body.removeChild(wrapper);
+        }
+        document.body.appendChild(wrapper);
+        return false;
+    }
+    document.querySelector("#add_info_button").onclick = addInfo;
+</script>
+</html>

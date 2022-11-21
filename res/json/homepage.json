@@ -21,29 +21,9 @@
             "describe": ""
         }, 
         {
-            "url": "detail.html",
+            "url": "detail.html?res=./res/json/rmsprop.json",
             "img": "res/images/logo.jpg",
             "title": "RMSProp",
-            "describe": ""
-        }
-    ],
-    "损失函数模块": [
-        {
-            "url": "detail.html",
-            "img": "res/images/logo.jpg",
-            "title": "交叉熵损失函数",
-            "describe": ""
-        }, 
-        {
-            "url": "detail.html",
-            "img": "res/images/logo.jpg",
-            "title": "L1和L2损失函数",
-            "describe": ""
-        },
-        {
-            "url": "detail.html",
-            "img": "res/images/logo.jpg",
-            "title": "正则项",
             "describe": ""
         }
     ]

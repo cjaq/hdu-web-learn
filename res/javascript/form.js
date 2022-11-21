@@ -1,3 +1,4 @@
+
 function create_fieldset_with_class_and_childs(describe, className, childs, father){
     let fieldset = document.createElement("fieldset");
     let legend = document.createElement("legend");
@@ -61,6 +62,7 @@ function create_table_with_textarea(row, col, row_title, col_title){
     }
     return table;
 }
+
 
 function attach(){
     let objs = document.querySelectorAll("fieldset");
@@ -172,8 +174,8 @@ function attach(){
     }
 }
 
-
 document.getElementsByTagName("form")[0].onsubmit = ()=>{
+
     let div = document.getElementById("form_basic_info");
     let infos = div.getElementsByTagName("input");
     for(let i = 0; i < infos.length; ++i){
@@ -182,7 +184,59 @@ document.getElementsByTagName("form")[0].onsubmit = ()=>{
             return false;
         }
     }
-    return true;
-}
 
-attach();
+    let json = {"basic_info": [], "algorithm_describe": [], "mathematical_principles": [], "code_implement": [],
+    "experimental_performance": [], "others": []};
+    let fieldset = document.querySelector("form").querySelectorAll("fieldset");
+    let map = {"文本": "text", "公式": "formula", "图片": "img", "表格": "table", "代码": "code"};
+    for(let i = 0; i < fieldset.length; ++i){
+        if(i == 0){
+            let select = fieldset[0].getElementsByTagName("select")[0].value;
+            let div = fieldset[0].querySelector("#form_basic_info");
+            let items = div.getElementsByTagName("input");
+            let author = items[0].value;
+            let time = items[1].value;
+            let title = items[2].value;
+            json.basic_info.push({"type": "text", "detail": "标题:"+ title});
+            json.basic_info.push({"type": "text", "detail": "作者:"+ author});
+            json.basic_info.push({"type": "text", "detail": "创建时间:"+ time});
+            json.basic_info.push({"type": "text", "detail": "所属模块:"+ select});
+        }else{
+            let name = fieldset[i].id;
+            let val = fieldset[i].querySelectorAll("fieldset");
+            for(let j = 0; j < val.length; ++j){
+                let type = map[val[j].querySelector("legend").textContent];
+                if(type != "table" && type != "img"){
+                    json[name].push({"type": type, "detail": val[j].querySelector("textarea").value});
+                }else if(type == "table"){
+                    let col = 0, row = 0;
+                    let trs = val[j].querySelectorAll("tr");
+                    row = trs.length - 1;
+                    col = trs[0].querySelectorAll("td").length - 1;
+                    let table_value = {"type":"table", "col": col, "row": row, "info": []};
+                    for(let k = 0; k < row; ++k){
+                        let tds = trs[k].querySelectorAll("td");
+                        for(let t = 0; t < col; ++t){
+                            let tx = tds[t].querySelector("textarea");
+                            if(tx == undefined){
+                                table_value.info.push("");
+                            }else{
+                                table_value.info.push(tx.value);
+                            }
+                        }
+                    }
+                    json[name].push(table_value);
+                }
+            }
+        }
+    }
+    window.open("detail.html?res=cookie");
+    Cookies.set('preview-content', JSON.stringify(json));
+    return false;
+}
+window.onload = ()=>{
+    if(!Cookies.get("login_user")){
+        $(location).attr('href', '/res/tpl/login.html');
+    }
+    attach();
+}

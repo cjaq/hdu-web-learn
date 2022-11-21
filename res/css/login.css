@@ -1,0 +1,75 @@
+@media(max-width: 992px){
+    form{
+        position: relative;
+        top:150px;
+        border-radius: 1em;
+        border: 2px solid black;
+        margin: auto;
+        width: 80%;
+    }
+    form > p{
+        margin: 20px auto 5px auto;
+        width: 80%;
+    }
+    #error_msg_wrapper{
+        position: absolute;
+        top: 170px;
+        width: 80%;
+        left: 10%;
+    }
+}
+
+@media(min-width: 992px){
+    form{
+        position: relative;
+        top: 100px;
+        border-radius: 1em;
+        border: 2px solid black;
+        margin: auto;
+        width: 30%;
+    }
+    form > p{
+        margin: 20px auto 5px auto;
+        width: 50%;
+    }
+
+    #error_msg_wrapper{
+        position: absolute;
+        top: 120px;
+        width: 50%;
+        left: 25%;
+    }
+
+}
+
+form > input{
+    margin: auto;
+    width:50%;
+    left: 25%;
+    height: 30px;
+    position: relative;
+}
+
+#login{
+    display: block;
+    width:52%;
+    margin: 20px auto 5px 25%;
+    transition: all 0.25s linear;
+    background-color: #eeeeee;
+    border-radius: 1em;
+    border-width: 0px;
+    height: 30px;
+}
+
+#login:hover{
+    transition: all 0.25s linear;
+    background-color: #cccccc;
+}
+
+#error_msg_wrapper{
+    background-color: bisque;
+    text-align: center;
+    transition: all 0.5s linear;
+    opacity: 0%;
+}
+

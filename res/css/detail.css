@@ -26,6 +26,10 @@
         position: relative;
         left: 5%;
     }
+    #comments_wrapper{
+        position: relative;
+        top:140px;
+    }
 }
 
 @media (min-width: 992px){
@@ -41,6 +45,10 @@
         width: 60%;
         position: relative;
         left: 5%;
+    }
+    #comments_wrapper{
+        position: relative;
+        top:105px;
     }
 }
 
@@ -105,4 +113,25 @@ body{
 
 .table_wrapper{
     overflow:scroll;
+}
+
+td{
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#comments_title{
+    border-bottom: 1px solid black;
+}
+
+#comments{
+    position: relative;
+    padding: 0%;
+}
+
+#comments > li{
+    border-bottom: 1px solid black;
+    padding: 10px 0px 10px 0px;
 }

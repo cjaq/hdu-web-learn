@@ -9,52 +9,19 @@
     <link rel='stylesheet' type='text/css' media='screen' href='res/css/base.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='res/css/header.css'>
     <meta name="viewport"content="width=device-width,user-scalable=no,initial-scale=1.0,  maximum-scale=1.0,minimum-scale=1.0">	
+    <script src="/res/javascript/jquery.min.js"></script>
+    <script src="/res/javascript/js.cookie.js"></script>
+    <script src="/res/javascript/header.js"></script>
 </head>
 <body>
-    <header>
-        <div class="header_container flex-justify-between flex-d flex-row" id="top_nav">
-          <div class="header_nav">
-            <ul id="links">
-              <li>
-                  <a href="./index.html" class="flex-d">
-                    <div class="bg_icon bg_home"></div>
-                    <p>首页</p>
-                  </a>
-              </li>
-              <li>
-                  <a href="./proj.html" class="flex-d">
-                    <div class="bg_icon bg_mnist"></div>
-                    <p>尝试:手写数字的识别</p>
-                  </a>
-              </li>
-              <li>
-                  <a href="./pca.html" class="flex-d">
-                    <div class="bg_icon bg_re"></div>
-                    <p>尝试:pca降维可视化</p>
-                  </a>
-              </li>
-              <li>
-                  <a href="./form.html" class="flex-d">
-                    <div class="bg_icon bg_form"></div>
-                    <p>表单页</p>
-                  </a>
-              </li>
-            </ul>
-          </div>
-          <div class="header_logo">
-            <img src="res/images/logo.jpg" class="circle-border">
-          </div>
-          
-        </div>
-  
-      </header>
+    <header></header>
     <form>
         <fieldset id="form_module">
             <legend>基本属性</legend>
             内容所属模块:<select name="module_type">
-                <option value="structure_module">模型结构模块</option>
-                <option value="optimizer_module">优化器模块</option>
-                <option value="lossfunc_module">损失函数模块</option>
+                <option>模型结构模块</option>
+                <option>优化器模块</option>
+                <option>损失函数模块</option>
               </select>
               <div id="form_basic_info">
                 作者:<input type="text" name="author">
@@ -63,7 +30,7 @@
               </div>
         </fieldset>
         
-        <fieldset id="form_algorithm_describe" class="flex-d flex-col">
+        <fieldset id="algorithm_describe" class="flex-d flex-col">
             <legend>算法描述</legend>
             <div class="insert_block">
                 <select>
@@ -75,7 +42,7 @@
             </div>
         </fieldset>
 
-        <fieldset id="form_mathematical_principles" class="flex-d flex-col">
+        <fieldset id="mathematical_principles" class="flex-d flex-col">
             <legend>数学原理</legend>
             <div class="insert_block">
                 <select>
@@ -87,7 +54,7 @@
             </div>
         </fieldset>
 
-        <fieldset id="form_code_implement" class="flex-d flex-col">
+        <fieldset id="code_implement" class="flex-d flex-col">
             <legend>代码实现</legend>
             <div class="insert_block">
                 <select>
@@ -99,7 +66,7 @@
             </div>
         </fieldset>
 
-        <fieldset id="form_experimental_performance" class="flex-d flex-col">
+        <fieldset id="experimental_performance" class="flex-d flex-col">
             <legend>实验表现</legend>
             <div class="insert_block">
                 <select>
@@ -111,7 +78,7 @@
             </div>
         </fieldset>
 
-        <fieldset id="form_others" class="flex-d flex-col">
+        <fieldset id="others" class="flex-d flex-col">
             <legend>杂项</legend>
             <div class="insert_block">
                 <select>

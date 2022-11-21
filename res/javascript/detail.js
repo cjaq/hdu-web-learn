@@ -47,36 +47,10 @@ function attach_expand_func(){
 }
 
 function load_list_content_from_server(){
-    let url = './res/json/homepage.json';
-    let request = new XMLHttpRequest();
-    request.open('get', url);
-    request.send(null);
-    request.onload = () =>{
-        if(request.status == 200){
-            let data = JSON.parse(request.responseText);
-            document.getElementsByClassName("list_nav flex-col")[0].appendChild(decode_list_item(data));
-            attach_expand_func();
-        }else{
-            alert("读取数据时出错");
-        }
-    }
-}
-load_list_content_from_server();
-
-document.getElementById("show_all").onclick = () => {
-    let c = document.getElementsByClassName("list_nav");
-    if(c.length > 0){
-        c[0].setAttribute("class", "list_nav_mobile_show");
-    }else{
-        let t = document.getElementsByClassName("list_nav_mobile_show")[0];
-        console.log(t.style.width);
-        if(t.style.width == "0px"){
-            t.style.width = "50%";
-        }else{
-            t.style.width = "0px";
-        }   
-
-    }
+    $.ajax({url: './res/json/homepage.json', success: (result) => {
+        document.getElementsByClassName("list_nav flex-col")[0].appendChild(decode_list_item(result));
+        attach_expand_func();
+    }})
 }
 
 function getQueryString(name) {
@@ -268,18 +242,32 @@ function attach_color_code(){
 
 function load_content_from_server(){
     let url = getQueryString("res");
-    let request = new XMLHttpRequest();
-    request.open('get', url);
-    request.send(null);
-    request.onload = () =>{
-        if(request.status == 200){
-            let data = JSON.parse(request.responseText);
-            decode_content(data);
-            attach_color_code();
-        }else{
-            alert("读取数据时出错");
-        }
+    if(url == 'cookie'){
+        let data = JSON.parse(Cookies.get('preview-content'));
+        decode_content(data);
+        attach_color_code();
+    }else{
+        $.ajax({url:url, success:(result) => {decode_content(result);attach_color_code();}});
     }
+    
 }
 
-load_content_from_server();
+
+window.onload = ()=>{
+    document.getElementById("show_all").onclick = () => {
+        let c = document.getElementsByClassName("list_nav");
+        if(c.length > 0){
+            c[0].setAttribute("class", "list_nav_mobile_show");
+        }else{
+            let t = document.getElementsByClassName("list_nav_mobile_show")[0];
+            if(t.style.width == "0px"){
+                t.style.width = "50%";
+            }else{
+                t.style.width = "0px";
+            }   
+    
+        }
+    }
+    load_list_content_from_server();
+    load_content_from_server();
+}
