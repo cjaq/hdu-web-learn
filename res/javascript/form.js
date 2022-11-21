@@ -236,6 +236,7 @@ document.getElementsByTagName("form")[0].onsubmit = ()=>{
 }
 window.onload = ()=>{
     if(!Cookies.get("login_user")){
+        $("body").css("display", "none");
         $(location).attr('href', '/hdu-web-learn/res/tpl/login.html');
     }
     attach();
