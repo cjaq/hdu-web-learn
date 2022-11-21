@@ -43,6 +43,7 @@ function load_content_from_server(){
     request.onload = () =>{
         if(request.status == 200){
             let data = JSON.parse(request.responseText);
+            console.log(data);
             document.getElementById("main_body").appendChild(create_html_objs_in_main(data));
         }else{
             alert("读取数据时出错");

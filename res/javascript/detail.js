@@ -48,6 +48,14 @@ function attach_expand_func(){
 
 function load_list_content_from_server(){
     $.ajax({url: './res/json/homepage.json', success: (result) => {
+        if(!isNaN(parseInt(localStorage.getItem("page-count")))){
+            let user_page_count = parseInt(localStorage.getItem("page-count"));
+            result["用户自定义"] = [];
+            for(let i = 0; i < user_page_count; ++i){
+                result["用户自定义"].push({'url': './detail.html?res=localstorage&index=' + (i + 1).toString(), 
+                'title': localStorage.getItem("title" + (i + 1).toString())});
+            }
+        }
         document.getElementsByClassName("list_nav flex-col")[0].appendChild(decode_list_item(result));
         attach_expand_func();
     }})
@@ -242,8 +250,12 @@ function attach_color_code(){
 
 function load_content_from_server(){
     let url = getQueryString("res");
-    if(url == 'localstorage'){
-        let data = JSON.parse(localStorage.getItem('preview-content'));
+    if(url == "localstorage"){
+        let page_index = parseInt(localStorage.getItem("page-count"));
+        if(getQueryString("index") != null){
+            page_index = parseInt(getQueryString("index"));
+        }
+        let data = JSON.parse(localStorage.getItem('preview-content' + page_index.toString()));
         decode_content(data);
         attach_color_code();
     }else{

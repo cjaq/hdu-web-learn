@@ -31,7 +31,7 @@ textarea{
 }
 
 @media(max-width: 992px){
-  form{
+  main{
     position: relative;
     top:140px;
   }
@@ -39,19 +39,36 @@ textarea{
     display: grid;
     grid-template-columns: 1fr;
   }
+  #router{
+    list-style: none;
+    width: 80%;
+    margin: auto;
+  }
+  
 }
 
 @media(min-width: 992px){
   
-  form{
+  main{
     position: relative;
     top: 100px;
   }
+  #router{
+    list-style: none;
+    width: 30%;
+    margin: auto;
+  }
+  
 }
 
 @media (max-height: 300px){
-  form{
+  main{
     position: relative;
     top: 0px;
   }
+}
+
+#router > li{
+  display: flex;
+  justify-content: space-between !important;
 }
