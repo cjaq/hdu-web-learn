@@ -7,7 +7,7 @@ window.onload = ()=>{
             for(let i = 0; i < users.length; ++i){
                 if(users[i].account == account && users[i].password == password){
                     Cookies.set("login_user", users[i].name);
-                    $(location).attr('href', '/form.html');
+                    $(location).attr('href', '/hdu-web-learn/form.html');
                 }else{
                     $("#error_msg_wrapper").css({
                         "opacity": "100%"
