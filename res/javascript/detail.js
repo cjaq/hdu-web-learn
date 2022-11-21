@@ -242,8 +242,8 @@ function attach_color_code(){
 
 function load_content_from_server(){
     let url = getQueryString("res");
-    if(url == 'cookie'){
-        let data = JSON.parse(Cookies.get('preview-content'));
+    if(url == 'localstorage'){
+        let data = JSON.parse(localStorage.getItem('preview-content'));
         decode_content(data);
         attach_color_code();
     }else{
