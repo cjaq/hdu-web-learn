@@ -292,13 +292,13 @@ function render_edit_localstorage_item(page_id){
                 if(data[key][i].type == 'formula'){
                     let textarea = document.createElement('textarea');
                     textarea.value = data[key][i].detail;
-                    let fieldset = create_fieldset_with_class_and_childs('文本', 'formula', [textarea], $('#' + key).get(0));
+                    let fieldset = create_fieldset_with_class_and_childs('公式', 'form_formula_wrapper', [textarea], $('#' + key).get(0));
                     $("#" + key).get(0).appendChild(fieldset);
                 }
                 if(data[key][i].type == 'code'){
                     let textarea = document.createElement('textarea');
                     textarea.value = data[key][i].detail;
-                    let fieldset = create_fieldset_with_class_and_childs('文本', 'form_code_wrapper', [textarea], $('#' + key).get(0));
+                    let fieldset = create_fieldset_with_class_and_childs('代码', 'form_code_wrapper', [textarea], $('#' + key).get(0));
                     $("#" + key).get(0).appendChild(fieldset);
                 }
                 if(data[key][i].type == 'table'){
