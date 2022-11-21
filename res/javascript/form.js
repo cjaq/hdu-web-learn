@@ -172,9 +172,7 @@ function attach(){
            }
         }
     }
-}
-
-document.getElementsByTagName("form")[0].onsubmit = ()=>{
+    document.getElementsByTagName("form")[0].onsubmit = ()=>{
 
     let div = document.getElementById("form_basic_info");
     let infos = div.getElementsByTagName("input");
@@ -234,10 +232,14 @@ document.getElementsByTagName("form")[0].onsubmit = ()=>{
     Cookies.set('preview-content', JSON.stringify(json));
     return false;
 }
+}
+
+
 window.onload = ()=>{
     if(!Cookies.get("login_user")){
-        $("body").css("display", "none");
         $(location).attr('href', '/hdu-web-learn/res/tpl/login.html');
+    }else{
+        $("body").css("display", "block");
     }
     attach();
 }
