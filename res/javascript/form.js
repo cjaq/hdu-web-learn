@@ -228,8 +228,9 @@ function attach(){
             }
         }
     }
-    window.open("detail.html?res=cookie");
-    Cookies.set('preview-content', JSON.stringify(json));
+    localStorage.clear();
+    localStorage.setItem('preview-content', JSON.stringify(json));
+    window.open("detail.html?res=localstorage");
     return false;
 }
 }
