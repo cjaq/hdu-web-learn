@@ -54,7 +54,7 @@
 @media (min-width: 992px){
 
     #top_nav>.header_logo{
-        display: block;
+        display: flex;
     }
 
     header ul{
@@ -146,4 +146,7 @@
     .bg_form {
         background-position: 39px 39px;      
     }
+}
+#logout{
+    align-self: center;
 }
