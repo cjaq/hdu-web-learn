@@ -20,7 +20,7 @@ function create_fieldset_with_class_and_childs(describe, className, childs, fath
     return fieldset;
 }
 
-function create_table_with_textarea(row, col, row_title, col_title){
+function create_table_with_textarea(row, col, row_title, col_title, inner=null){
     let table = document.createElement("table");
     for(let i = 0; i < row + 2; ++i){
         let tr = document.createElement("tr");
@@ -54,6 +54,11 @@ function create_table_with_textarea(row, col, row_title, col_title){
                     textarea.textContent = col_title[j - 1];        
                 }else if(j == 0 && i >= 1){
                     textarea.textContent = row_title[i - 1];
+                }else{
+                    if(inner != null){
+                        textarea.textContent = inner[i * (col + 1) + j];
+                        console.log('col=' + col + 'row=' + row);
+                    }
                 }
                 td.appendChild(textarea);
             }
@@ -311,7 +316,7 @@ function render_edit_localstorage_item(page_id){
                     for(let j = data[key][i].col; j < data[key][i].col * data[key][i].row; j += data[key][i].col){
                         rows.push(data[key][i].info[j]);
                     }
-                    let table = create_table_with_textarea(data[key][i].row - 1, data[key][i].col - 1, rows, cols);
+                    let table = create_table_with_textarea(data[key][i].row - 1, data[key][i].col - 1, rows, cols, data[key][i].info);
                     let add_row_button = document.createElement("button");
                     let add_col_button = document.createElement("button");
                     add_row_button.setAttribute("type", "button");
