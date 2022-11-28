@@ -137,3 +137,8 @@ td{
     text-align: center;
     white-space: nowrap;
 }
+
+#edit_icon{
+    cursor: pointer;
+}
+
