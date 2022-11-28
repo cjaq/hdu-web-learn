@@ -30,6 +30,14 @@
         position: relative;
         top:140px;
     }
+    #edit_icon{
+        width: 30px;
+        height: 30px;
+        position: fixed;
+        left: 90%;
+        height: 10%;
+        z-index: 1000;
+    }
 }
 
 @media (min-width: 992px){
@@ -49,6 +57,14 @@
     #comments_wrapper{
         position: relative;
         top:105px;
+    }
+    #edit_icon{
+        width: 60px;
+        height: 60px;
+        position: fixed;
+        left: 80%;
+        height: 10%;
+        z-index: 1000;
     }
 }
 
