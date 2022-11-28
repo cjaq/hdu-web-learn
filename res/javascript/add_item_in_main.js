@@ -66,6 +66,22 @@ function load_content_from_server(){
 }
 
 window.onload = ()=>{
+        //如果不存在本地存储，产生一个默认的数据
+    if(localStorage.getItem('page-count') == null || localStorage.getItem('page-count') == '0'){
+        localStorage.setItem('page-count', '1');
+        let request = new XMLHttpRequest();
+        request.open('get', 'res/json/cnn.json');
+        request.send(null);
+        request.onload = () =>{
+            if(request.status == 200){
+                let data = JSON.parse(request.responseText);
+                localStorage.setItem('preview-content1', JSON.stringify(data));
+                localStorage.setItem('title1', data.basic_info[0].detail);
+            }else{
+                alert("读取数据时出错");
+            }   
+        }  
+    }
     document.getElementById("add_icon").onclick = ()=>{
         location.href = '/hdu-web-learn/form.html#/';
     }
