@@ -244,6 +244,7 @@ function attach(){
         }else{
             localStorage.setItem('preview-content' + edit_page_id, JSON.stringify(json));
             localStorage.setItem("title" + edit_page_id, title);
+            location.href = 'detail.html?res=localstorage&index=' + edit_page_id;
         }
         
         return false;
