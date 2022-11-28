@@ -266,6 +266,12 @@ function load_content_from_server(){
 
 
 window.onload = ()=>{
+    if(getQueryString("res") == "localstorage"){
+        document.getElementById("edit_icon").style.display = "flex";
+        document.getElementById("edit_icon").onclick = ()=> {
+            location.href = '/hdu-web-learn/form.html#/edit/' + getQueryString("index");
+        }
+    }
     document.getElementById("show_all").onclick = () => {
         let c = document.getElementsByClassName("list_nav");
         if(c.length > 0){
