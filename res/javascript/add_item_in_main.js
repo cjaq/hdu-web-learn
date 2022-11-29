@@ -86,6 +86,6 @@ window.onload = ()=>{
         load_content_from_server();
     }
     document.getElementById("add_icon").onclick = ()=>{
-        location.href = '/form.html#/';
+        location.href = '/hdu-web-learn/form.html#/';
     }
 }
