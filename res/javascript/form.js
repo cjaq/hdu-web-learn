@@ -245,7 +245,9 @@ function attach(){
             localStorage.setItem("page-count", page_count.toString());
             localStorage.setItem('preview-content' + page_count.toString(), JSON.stringify(json));
             localStorage.setItem("title" + page_count.toString(), title);
-            window.open("detail.html?res=localstorage");
+            //window.open("detail.html?res=localstorage&index=" + page_count.toString());
+            location.href = 'detail.html?res=localstorage&index=' + page_count.toString();
+            location.href = 'form.html#/edit/' + page_count.toString();
         }else{
             localStorage.setItem('preview-content' + edit_page_id, JSON.stringify(json));
             localStorage.setItem("title" + edit_page_id, title);
