@@ -56,7 +56,7 @@ function load_list_content_from_server(){
             let user_page_count = parseInt(localStorage.getItem("page-count"));
             result["用户自定义"] = [];
             for(let i = 0; i < user_page_count; ++i){
-                result["用户自定义"].push({'url': './detail.html/#localstorage/' + (i + 1).toString(), 
+                result["用户自定义"].push({'url': './detail.html#/localstorage/' + (i + 1).toString(), 
                 'title': localStorage.getItem("title" + (i + 1).toString())});
             }
         }
