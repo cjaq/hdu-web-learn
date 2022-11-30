@@ -246,12 +246,12 @@ function attach(){
             localStorage.setItem('preview-content' + page_count.toString(), JSON.stringify(json));
             localStorage.setItem("title" + page_count.toString(), title);
             //window.open("detail.html?res=localstorage&index=" + page_count.toString());
-            location.href = 'detail.html?res=localstorage&index=' + page_count.toString();
+            location.href = 'detail.html#/localstorage/' + page_count.toString();
             location.href = 'form.html#/edit/' + page_count.toString();
         }else{
             localStorage.setItem('preview-content' + edit_page_id, JSON.stringify(json));
             localStorage.setItem("title" + edit_page_id, title);
-            location.href = 'detail.html?res=localstorage&index=' + edit_page_id;
+            location.href = 'detail.html#/localstorage/' + edit_page_id;
         }
         
         return false;
