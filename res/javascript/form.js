@@ -390,7 +390,7 @@ function base_render(result){
         let page_count = parseInt(localStorage.getItem("page-count"));
         for(let i = 1; i <= page_count; ++i){
             let li = document.createElement("li");
-            li.innerHTML = `<a href='detail.html?res=localstorage&index=${i}'>${localStorage.getItem("title" + i.toString())}</a><div><a href='#/edit/${i}' class='edit' id='e${i}'>修改</a><a class='delete' id='d${i}'>删除</a><div>`
+            li.innerHTML = `<a href='detail.html#/localstorage/${i}'>${localStorage.getItem("title" + i.toString())}</a><div><a href='#/edit/${i}' class='edit' id='e${i}'>修改</a><a class='delete' id='d${i}'>删除</a><div>`
             document.getElementById("router").appendChild(li);
         }
         $(".delete").click(delete_localstorage_item);
