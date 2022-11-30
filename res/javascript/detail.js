@@ -47,6 +47,10 @@ function attach_expand_func(){
 }
 
 function load_list_content_from_server(){
+    let d = document.getElementsByClassName("list_nav flex-col")[0];
+    if(d.firstChild != null){
+        d.removeChild(d.firstChild);
+    }
     $.ajax({url: './res/json/homepage.json', success: (result) => {
         if(!isNaN(parseInt(localStorage.getItem("page-count")))){
             let user_page_count = parseInt(localStorage.getItem("page-count"));
@@ -56,7 +60,7 @@ function load_list_content_from_server(){
                 'title': localStorage.getItem("title" + (i + 1).toString())});
             }
         }
-        document.getElementsByClassName("list_nav flex-col")[0].appendChild(decode_list_item(result));
+        d.appendChild(decode_list_item(result));
         attach_expand_func();
     }})
 }
@@ -265,7 +269,7 @@ function load_content_from_server(){
 }
 
 
-window.onload = ()=>{
+function base_render(){
     if(getQueryString("res") == "localstorage"){
         document.getElementById("edit_icon").style.display = "flex";
         document.getElementById("edit_icon").onclick = ()=> {
@@ -282,10 +286,39 @@ window.onload = ()=>{
                 t.style.width = "50%";
             }else{
                 t.style.width = "0px";
-            }   
-    
+            } 
         }
     }
     load_list_content_from_server();
-    load_content_from_server();
+    //load_content_from_server();
+}
+
+function render_server(path){
+    path = 'res/json/' + path;
+    console.log(path);
+    $.ajax({url:path, success:(result) => {decode_content(result);attach_color_code();}});
+}
+
+function redner_local(id){
+    let data = JSON.parse(localStorage.getItem('preview-content' + id.toString()));
+    decode_content(data);
+    attach_color_code();
+}
+window.onload = ()=>{
+    var routes = {
+        '/server/:path': (path)=>{
+            base_render();
+            render_server(path);
+        },
+        '/localstorage/:id': (id)=>{
+            document.getElementById("edit_icon").style.display = "flex";
+            document.getElementById("edit_icon").onclick = ()=> {
+                location.href = '/hdu-web-learn/form.html#/edit/' + getQueryString("index");
+            }
+            base_render();
+            redner_local(id);
+        }
+      };
+    var router = Router(routes);
+    router.init();
 }
