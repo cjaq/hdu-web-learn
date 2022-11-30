@@ -303,7 +303,7 @@ function redner_local(id){
         attach_color_code();
         document.getElementById("edit_icon").style.display = "flex";
         document.getElementById("edit_icon").onclick = ()=> {
-            location.href = '/form.html#/edit/' + id;
+            location.href = './form.html#/edit/' + id;
         }
     }});
 }
