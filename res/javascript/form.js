@@ -276,7 +276,7 @@ function delete_localstorage_item(e){
     }
     localStorage.removeItem(`preview-content${page_count}`);
     localStorage.removeItem(`title${page_count}`);
-    
+    location.href = 'form.html/#';
 }
 function render_edit_localstorage_item(page_id){
     form_type = 1;
