@@ -76,7 +76,7 @@ window.onload = ()=>{
             if(request.status == 200){
                 let data = JSON.parse(request.responseText);
                 localStorage.setItem('preview-content1', JSON.stringify(data));
-                localStorage.setItem('title1', data.basic_info[0].detail);     
+                localStorage.setItem('title1', data.basic_info[0].detail.substring(3));     
                 load_content_from_server();      
             }else{
                 alert("读取数据时出错");
