@@ -295,14 +295,19 @@ function base_render(){
 
 function render_server(path){
     path = 'res/json/' + path;
-    console.log(path);
-    $.ajax({url:path, success:(result) => {decode_content(result);attach_color_code();}});
+    $.ajax({url:'res/tpl/detail.html', success:(result) => {
+        $("#content").html(result);
+        $.ajax({url:path, success:(result) => {decode_content(result);attach_color_code();}});
+    }});
 }
 
 function redner_local(id){
-    let data = JSON.parse(localStorage.getItem('preview-content' + id.toString()));
-    decode_content(data);
-    attach_color_code();
+    $.ajax({url:'res/tpl/detail.html', success:(result) => {
+        $("#content").html(result);
+        let data = JSON.parse(localStorage.getItem('preview-content' + id.toString()));
+        decode_content(data);
+        attach_color_code();
+    }});
 }
 window.onload = ()=>{
     var routes = {
