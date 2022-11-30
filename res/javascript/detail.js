@@ -270,12 +270,6 @@ function load_content_from_server(){
 
 
 function base_render(){
-    if(getQueryString("res") == "localstorage"){
-        document.getElementById("edit_icon").style.display = "flex";
-        document.getElementById("edit_icon").onclick = ()=> {
-            location.href = '/hdu-web-learn/form.html#/edit/' + getQueryString("index");
-        }
-    }
     document.getElementById("show_all").onclick = () => {
         let c = document.getElementsByClassName("list_nav");
         if(c.length > 0){
@@ -290,7 +284,6 @@ function base_render(){
         }
     }
     load_list_content_from_server();
-    //load_content_from_server();
 }
 
 function render_server(path){
@@ -298,6 +291,7 @@ function render_server(path){
     $.ajax({url:'res/tpl/detail.html', success:(result) => {
         $("#content").html(result);
         $.ajax({url:path, success:(result) => {decode_content(result);attach_color_code();}});
+        document.getElementById("edit_icon").style.display = "none";
     }});
 }
 
@@ -307,6 +301,10 @@ function redner_local(id){
         let data = JSON.parse(localStorage.getItem('preview-content' + id.toString()));
         decode_content(data);
         attach_color_code();
+        document.getElementById("edit_icon").style.display = "flex";
+        document.getElementById("edit_icon").onclick = ()=> {
+            location.href = '/form.html#/edit/' + id;
+        }
     }});
 }
 window.onload = ()=>{
@@ -316,10 +314,6 @@ window.onload = ()=>{
             render_server(path);
         },
         '/localstorage/:id': (id)=>{
-            document.getElementById("edit_icon").style.display = "flex";
-            document.getElementById("edit_icon").onclick = ()=> {
-                location.href = '/hdu-web-learn/form.html#/edit/' + getQueryString("index");
-            }
             base_render();
             redner_local(id);
         }
