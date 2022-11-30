@@ -8,7 +8,7 @@ function create_html_objs_in_main(data){
         page_count = parseInt(page_count);
         data["用户自定义"] = [];
         for(let i = 0; i < page_count; ++i){
-            data["用户自定义"].push({'url': './detail.html?res=localstorage&index=' + (i + 1).toString(), 
+            data["用户自定义"].push({'url': './detail.html#/localstorage/' + (i + 1).toString(), 
             'title': localStorage.getItem("title" + (i + 1).toString()),
             'img': 'res/images/logo.jpg' });
         }
