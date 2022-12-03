@@ -311,13 +311,12 @@ function redner_local(id){
     }});
 }
 window.onload = ()=>{
+    base_render();
     var routes = {
         '/server/:path': (path)=>{
-            base_render();
             render_server(path);
         },
         '/localstorage/:id': (id)=>{
-            base_render();
             redner_local(id);
         }
       };
