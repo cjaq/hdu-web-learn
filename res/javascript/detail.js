@@ -323,3 +323,18 @@ window.onload = ()=>{
     var router = Router(routes);
     router.init();
 }
+window.onresize = (e)=>{
+    if(e.srcElement.innerWidth >= 992){
+        let t = document.getElementsByClassName("list_nav_mobile_show");
+        if(t.length > 0){
+            t[0].style.width = "30%";
+            t[0].className = "list_nav flex-col";
+        }
+    }else{
+        let t = document.getElementsByClassName("list_nav");
+        if(t.length > 0){
+            t[0].style.width = "0px";
+            t[0].className = "list_nav_mobile_show";
+        }
+    }
+}
