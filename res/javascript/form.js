@@ -114,7 +114,8 @@ function attach(){
                 }
                 div.appendChild(img);
                 div.appendChild(img_upload);
-                m.appendChild(div);
+                let fieldset = create_fieldset_with_class_and_childs("图片", "form_img_wrapper", [div], m);
+                m.appendChild(fieldset);
            }else if(type=="表格"){
                 let table = create_table_with_textarea(1, 1, ["item1"], ["title1"]);
                 let add_row_button = document.createElement("button");
@@ -231,6 +232,9 @@ function attach(){
                             }
                         }
                         json[name].push(table_value);
+                    }else if(type == "img"){
+                        let img_val = val[j].querySelector(".upload_img_display").src;
+                        json[name].push({"type": type, "detail": img_val});
                     }
                 }
             }
@@ -308,6 +312,31 @@ function render_edit_localstorage_item(page_id){
                     textarea.value = data[key][i].detail;
                     let fieldset = create_fieldset_with_class_and_childs('代码', 'form_code_wrapper', [textarea], $('#' + key).get(0));
                     $("#" + key).get(0).appendChild(fieldset);
+                }
+                if(data[key][i].type == 'img'){
+                    let div = document.createElement("div");
+                    div.setAttribute("class", "img_upload")
+                    let img = document.createElement("img");
+                    img.setAttribute("class", "upload_img_display");
+                    let img_upload = document.createElement("input");
+                    img.src = data[key][i].detail;
+                    img_upload.type = "file";
+                    img_upload.accept = "image/*"
+                    img_upload.onchange = ()=> {
+                        console.log(img_upload);
+                        if(img_upload.files.length){
+                            let file = img_upload.files[0];
+                            let reader = new FileReader();
+                            reader.onload = function(){
+                            img.src = this.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }                
+                    }
+                    div.appendChild(img);
+                    div.appendChild(img_upload);
+                    let fieldset = create_fieldset_with_class_and_childs("图片", "form_img_wrapper", [div], $('#' + key).get(0));
+                    $('#' + key).get(0).appendChild(fieldset);
                 }
                 if(data[key][i].type == 'table'){
                     let cols = [];
