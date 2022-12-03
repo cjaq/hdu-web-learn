@@ -48,6 +48,9 @@ function attach_expand_func(){
 
 function load_list_content_from_server(){
     let d = document.getElementsByClassName("list_nav flex-col")[0];
+    if(d == null){
+        d = document.getElementsByClassName("list_nav_mobile_show")[0];
+    }
     if(d.firstChild != null){
         d.removeChild(d.firstChild);
     }
