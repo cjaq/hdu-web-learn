@@ -327,7 +327,7 @@ window.onresize = (e)=>{
     if(e.srcElement.innerWidth >= 992){
         let t = document.getElementsByClassName("list_nav_mobile_show");
         if(t.length > 0){
-            t[0].style.width = "30%";
+            t[0].style.width = "20%";
             t[0].className = "list_nav flex-col";
         }
     }else{
