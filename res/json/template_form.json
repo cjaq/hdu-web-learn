@@ -1,0 +1,62 @@
+{
+    "basic_info":[
+        {
+            "type": "text",
+            "detail": "标题:测试标题"
+        },
+        {
+            "type": "text",
+            "detail": "作者:测试作者"
+        },
+        {
+            "type": "text",
+            "detail": "创建时间:2022-12-05"
+        },
+        {
+            "type": "text",
+            "detail": "所属模块:模型结构模块"
+        }
+    ],
+    "algorithm_describe":[
+        {
+            "type": "text",
+            "detail": "测试内容测试内容测试内容"
+        }
+    ],
+    "mathematical_principles":[
+        {
+            "type": "text",
+            "detail": "测试内容测试内容测试内容"
+        },
+        {
+            "type": "img",
+            "detail": "res/images/eb0088f908d955e0e452d3b05ae309b4.svg"
+        }
+    ],
+    "code_implement":[
+        {
+            "type": "code",
+            "detail": "class CNN(nn.Module):\ndef __init__(self):\n    super(CNN, self).__init__()\n    self.model = nn.Sequential(\n        nn.Conv2d(3, 16, 3, 1, 1),\n        nn.MaxPool2d(2, 2),\n        nn.ReLU(),\n        nn.Conv2d(16, 32, 3, 1, 1),\n        nn.MaxPool2d(2, 2),\n        nn.ReLU(),\n        nn.Flatten(),\n        nn.Linear(32 * 8 * 8, 10)\n    )\n\ndef forward(self, x):\n    return self.model(x)"
+        }
+    ],
+    "experimental_performance":[
+        {
+            "type":"text",
+            "detail":"测试内容测试内容测试内容"
+        },
+        {
+            "type": "table",
+            "col": 5,
+            "row": 3,
+            "info": ["", "test-1", "test-2", "test-3", "test-4",
+                    "test-1",	"test",	"test",	"test",	"test",
+                    "test-2",	"test",	"test",	"test",	"test"]
+        }
+    ],
+    "others":[
+        {
+            "type":"text",
+            "detail":"测试内容测试内容测试内容"
+        }
+    ]
+}
