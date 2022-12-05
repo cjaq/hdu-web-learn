@@ -72,3 +72,12 @@ textarea{
   display: flex;
   justify-content: space-between !important;
 }
+
+.form_code_wrapper > textarea{
+  height: 300px;
+}
+
+.form_code_wrapper > button{
+  position: relative;
+  height: 48px;
+}
