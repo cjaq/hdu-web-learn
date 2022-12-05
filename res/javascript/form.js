@@ -282,11 +282,8 @@ function delete_localstorage_item(e){
     localStorage.removeItem(`title${page_count}`);
     location.href = 'form.html#/';
 }
-function render_edit_localstorage_item(page_id){
-    form_type = 1;
-    edit_page_id = page_id;
-    let data = JSON.parse(localStorage.getItem("preview-content" + page_id));
-    //设置基本属性
+
+function render(data){
     $("input[name='author']").get(0).value=data.basic_info[1].detail.slice(3);
     $("input[name='title']").get(0).value=data.basic_info[0].detail.slice(3);
     $("input[name='time']").get(0).value=data.basic_info[2].detail.slice(5);
@@ -412,6 +409,14 @@ function render_edit_localstorage_item(page_id){
         }               
     }
 }
+
+function render_edit_localstorage_item(page_id){
+    form_type = 1;
+    edit_page_id = page_id;
+    let data = JSON.parse(localStorage.getItem("preview-content" + page_id));
+    //设置基本属性
+    render(data);
+}
 function base_render(result){
     $("main").html(result);
     $("body").css("display", "block");
@@ -434,6 +439,10 @@ window.onload = ()=>{
                 '/': ()=>{
                     form_type = 0;
                     base_render(result);
+                    //渲染模板
+                    $.ajax({url: 'res/json/template_form.json', success: (result)=>{
+                        render(result);
+                    }});
                     attach();
                 },
                 '/edit/:id': (id)=>{
